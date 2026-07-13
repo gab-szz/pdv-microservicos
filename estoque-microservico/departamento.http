@@ -1,0 +1,19 @@
+POST http://localhost:3000/departamento
+Content-Type: application/json
+
+{
+  "nome": "Alimentos",
+  "descricao": "Categoria para alimentos em geral"
+}
+
+###
+GET http://localhost:3000/departamento
+
+###
+GET http://localhost:3000/departamento/resumo
+
+
+###
+GET http://localhost:3000/departamento/1
+
+###
