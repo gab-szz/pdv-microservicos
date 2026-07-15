@@ -2,8 +2,8 @@ POST http://localhost:3000/departamento
 Content-Type: application/json
 
 {
-  "nome": "Alimentos",
-  "descricao": "Categoria para alimentos em geral"
+  "nome": "Refrigerado",
+  "descricao": "Categoria para refrigerados em geral"
 }
 
 ###
@@ -14,6 +14,6 @@ GET http://localhost:3000/departamento/resumo
 
 
 ###
-GET http://localhost:3000/departamento/1
+GET http://localhost:3000/departamento/74
 
 ###

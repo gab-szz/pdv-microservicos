@@ -6,8 +6,8 @@ import {
   type UpdateDepartamentoDTO,
   departamentoUpdateSchema,
 } from '@/infra/database/schemas/departamento.schema.js';
-import type { IDepartamentoRepositoryPort } from '../domain/departamento.port.js';
-import { Departamento } from '../domain/departamento.domain.js';
+import type { IDepartamentoRepositoryPort } from '../../domain/departamento.port.js';
+import { Departamento } from '../../domain/departamento.domain.js';
 import { eq } from 'drizzle-orm';
 
 export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
@@ -43,10 +43,7 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
    * @returns Lista de Departamentos
    */
   async selecionarPeloId(id: number): Promise<Departamento | null> {
-    const [row] = await this.db
-      .select()
-      .from(departamentoTable)
-      .where(eq(departamentoTable.id, id));
+    const [row] = await this.db.select().from(departamentoTable).where(eq(departamentoTable.id, id));
 
     return row ? Departamento.hidratar(row) : null;
   }

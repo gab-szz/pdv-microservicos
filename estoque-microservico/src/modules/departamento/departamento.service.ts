@@ -1,10 +1,12 @@
 import type { IDepartamentoRepositoryPort } from './domain/departamento.port.js';
 import { Departamento } from './domain/departamento.domain.js';
-import type { DepartamentoIA } from './infra/departamento.ia.js';
+import type { DepartamentoIA } from './infra/IA/departamento.ia.js';
+import type { DepartamentoCache } from './infra/cache/departamento.redis.js';
 
 export class DepartamentoService {
   constructor(
     private readonly repository: IDepartamentoRepositoryPort,
+    private readonly cache: DepartamentoCache,
     private readonly departamentoIA: DepartamentoIA,
   ) {}
 
@@ -21,6 +23,7 @@ export class DepartamentoService {
       throw new Error('Erro desconhecido ao inserir usuário');
     }
 
+    this.cache.salvar(resultado);
     return resultado;
   }
 
@@ -29,15 +32,13 @@ export class DepartamentoService {
    * @param inp - Dados para atualização do departamento
    * @returns Instãncia do departamento criado
    */
-  async atualizar(
-    id: number,
-    inp: { nome?: string; descricao?: string },
-  ): Promise<Departamento> {
+  async atualizar(id: number, inp: { nome?: string; descricao?: string }): Promise<Departamento> {
     const departamento = await this.consultarPeloId(id);
     departamento.atualizar(inp);
 
     const resultado = await this.repository.atualizar(id, departamento);
 
+    this.cache.salvar(departamento);
     return resultado;
   }
 
@@ -54,6 +55,12 @@ export class DepartamentoService {
    * @returns Departamento
    */
   async consultarPeloId(id: number): Promise<Departamento> {
+    const chached = await this.cache.obterPeloId(id);
+    if (chached !== null) {
+      console.log('Cache HIT');
+      return chached;
+    }
+
     const dep = await this.repository.selecionarPeloId(id);
     if (!dep) {
       throw new Error(`Departamento com id ${id} não encontrado`);

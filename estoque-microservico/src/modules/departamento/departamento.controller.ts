@@ -12,9 +12,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
 
   const service = departamentoContainer(db);
 
-  /**
-   *? Cria um novo departamento
-   */
+  // Cria um novo departamento
   app.post(
     '/',
     {
@@ -32,9 +30,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     },
   );
 
-  /**
-   *? Consulta departamentos
-   */
+  // Consulta departamentos
   app.get(
     '/',
     {
@@ -48,15 +44,13 @@ function departamentoRoutes(fastify: FastifyInstance) {
     },
   );
 
-  /**
-   *? Consulta um departamento pelo ID
-   */
+  // Consulta um departamento pelo ID
   app.get(
     '/:id',
     {
       schema: {
-        params: z.object({ id: z.number() }),
-        response: { 200: z.array(departamentoSelectSchema) },
+        params: z.object({ id: z.coerce.number() }),
+        response: { 200: departamentoSelectSchema },
       },
     },
     async (request, reply) => {
@@ -66,9 +60,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     },
   );
 
-  /**
-   *? Atualiza um departamento
-   */
+  // Atualiza um departamento
   app.put(
     '/:id',
     {
@@ -86,9 +78,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     },
   );
 
-  /**
-   *? Exclui um departamento
-   */
+  // Exclui um departamento
   app.delete(
     '/:id',
     {
@@ -102,9 +92,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     },
   );
 
-  /**
-   *? Gera um resumo dos departamentos cadastrados
-   */
+  // Gera um resumo dos departamentos cadastrados
   app.get('/resumo', async (_request, reply) => {
     const resumo = await service.resumoDepartamento();
     return reply.code(200).send(resumo as any);

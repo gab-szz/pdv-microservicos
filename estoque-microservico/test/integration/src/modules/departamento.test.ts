@@ -1,10 +1,6 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import fastify from 'fastify';
-import {
-  serializerCompiler,
-  validatorCompiler,
-  type ZodTypeProvider,
-} from 'fastify-type-provider-zod';
+import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from 'fastify-type-provider-zod';
 import { departamentoTable } from '@/infra/database/schemas/departamento.schema.js';
 import { db } from '@/infra/database/postres.drizzle.js';
 import departamentoRoutes from '@/modules/departamento/departamento.controller.js';
@@ -86,10 +82,9 @@ describe('Módulo de Departamento (Integração)', () => {
     });
 
     test('Deve estourar erro de negócio se violar a regra da Entidade (descrição curta)', async () => {
-      // O Zod aceita qualquer string na rota, mas a Entidade exige min(6) no 'validarPropriedades'
       const payload = {
         nome: 'Contabilidade',
-        descricao: 'Curto', // Vai quebrar na Entidade
+        descricao: '.', // Vai quebrar na Entidade
       };
 
       const response = await app.inject({
@@ -98,8 +93,6 @@ describe('Módulo de Departamento (Integração)', () => {
         payload,
       });
 
-      // Como a Entidade joga um `new Error()`, se você não tiver um Error Handler global
-      // tratando para outro status, o Fastify vai responder 500.
       expect(response.statusCode).toBe(500);
     });
   });
@@ -144,9 +137,7 @@ describe('Módulo de Departamento (Integração)', () => {
     test('Deve atualizar com sucesso um departamento', async () => {
       const [row] = await db
         .insert(departamentoTable)
-        .values([
-          { nome: 'Recursos Humanos', descricao: 'Gestão de pessoas e talentos.' },
-        ])
+        .values([{ nome: 'Recursos Humanos', descricao: 'Gestão de pessoas e talentos.' }])
         .returning();
 
       const response = await app.inject({
