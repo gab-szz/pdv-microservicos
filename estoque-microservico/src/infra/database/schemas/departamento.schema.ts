@@ -14,6 +14,5 @@ export const departamentoInsertSchema = createInsertSchema(departamentoTable);
 export const departamentoUpdateSchema = createUpdateSchema(departamentoTable);
 export const departamentoSelectSchema = createSelectSchema(departamentoTable);
 
-export type DepartamentoDTO = z.infer<typeof departamentoSelectSchema>;
 export type InsertDepartamentoDTO = z.infer<typeof departamentoInsertSchema>;
 export type UpdateDepartamentoDTO = z.infer<typeof departamentoUpdateSchema>;

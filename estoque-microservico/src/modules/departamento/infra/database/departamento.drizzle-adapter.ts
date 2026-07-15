@@ -9,6 +9,7 @@ import {
 import type { IDepartamentoRepositoryPort } from '../../domain/departamento.port.js';
 import { Departamento } from '../../domain/departamento.domain.js';
 import { eq } from 'drizzle-orm';
+import { DepartamentoMapper } from '../../domain/departamento.mapper.js';
 
 export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
   constructor(private readonly db: DB) {}
@@ -25,7 +26,7 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
       .returning();
 
     if (!row) throw new Error();
-    return Departamento.hidratar(row);
+    return DepartamentoMapper.paraDominio(row);
   }
 
   /**
@@ -34,7 +35,7 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
    */
   async selecionarTodos(): Promise<Departamento[]> {
     const rows = await this.db.select().from(departamentoTable);
-    return rows ? rows.map((row) => Departamento.hidratar(row)) : [];
+    return rows ? rows.map((row) => DepartamentoMapper.paraDominio(row)) : [];
   }
 
   /**
@@ -45,7 +46,7 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
   async selecionarPeloId(id: number): Promise<Departamento | null> {
     const [row] = await this.db.select().from(departamentoTable).where(eq(departamentoTable.id, id));
 
-    return row ? Departamento.hidratar(row) : null;
+    return row ? DepartamentoMapper.paraDominio(row) : null;
   }
 
   /**
@@ -63,6 +64,6 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
       .returning();
 
     if (!row) throw new Error();
-    return Departamento.hidratar(row);
+    return DepartamentoMapper.paraDominio(row);
   }
 }

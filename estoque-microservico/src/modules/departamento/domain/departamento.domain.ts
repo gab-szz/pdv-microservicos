@@ -1,5 +1,11 @@
-import type { DepartamentoDTO } from '@/infra/database/schemas/departamento.schema.js';
-
+export interface DepartamentoDTO {
+  id?: number;
+  nome: string;
+  descricao?: string;
+  criadoEm?: Date;
+  alteradoEm?: Date;
+  excluidoEm?: Date;
+}
 export class Departamento {
   readonly id?: number;
   nome!: string;
