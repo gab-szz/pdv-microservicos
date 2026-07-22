@@ -1,11 +1,12 @@
 //import { departamentoSelectSchema } from '@/infra/schemas/departamento.schema.js';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { departamentoCreateSchema } from './departamento.schema.js';
+import { criarDepartamentoHttpSchema } from './departamento.schema.js';
 import { db } from '@/infra/database/postres.drizzle.js';
 import { departamentoSelectSchema } from '@/infra/database/schemas/departamento.schema.js';
 import { departamentoContainer } from './departamento.container.js';
 import z from 'zod';
+import { idSchema } from '@/global/zod.schemas.js';
 
 function departamentoRoutes(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
@@ -17,7 +18,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     '/',
     {
       schema: {
-        body: departamentoCreateSchema,
+        body: criarDepartamentoHttpSchema,
         response: {
           200: departamentoSelectSchema.omit({ alteradoEm: true, excluidoEm: true }),
         },
@@ -49,7 +50,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     '/:id',
     {
       schema: {
-        params: z.object({ id: z.coerce.number() }),
+        params: idSchema,
         response: { 200: departamentoSelectSchema },
       },
     },
@@ -65,8 +66,8 @@ function departamentoRoutes(fastify: FastifyInstance) {
     '/:id',
     {
       schema: {
-        body: departamentoCreateSchema,
-        params: z.object({ id: z.coerce.number() }),
+        body: criarDepartamentoHttpSchema,
+        params: idSchema,
         response: { 200: departamentoSelectSchema },
       },
     },
@@ -82,7 +83,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
   app.delete(
     '/:id',
     {
-      schema: { params: z.object({ id: z.number() }) },
+      schema: { params: idSchema },
     },
     async (request, reply) => {
       const { id } = request.params;

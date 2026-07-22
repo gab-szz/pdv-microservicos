@@ -3,6 +3,9 @@ import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'driz
 import type z from 'zod';
 import { baseSoftDeleteSchema } from './shared/schema.js';
 
+/**
+ * TABELA
+ */
 export const departamentoTable = snakeCase.table('departamento', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   nome: varchar({ length: 100 }).unique().notNull(),
@@ -10,9 +13,15 @@ export const departamentoTable = snakeCase.table('departamento', {
   ...baseSoftDeleteSchema,
 });
 
+/**
+ * SCHEMAS ZOD
+ */
 export const departamentoInsertSchema = createInsertSchema(departamentoTable);
 export const departamentoUpdateSchema = createUpdateSchema(departamentoTable);
 export const departamentoSelectSchema = createSelectSchema(departamentoTable);
 
+/**
+ * TIPOS
+ */
 export type InsertDepartamentoDTO = z.infer<typeof departamentoInsertSchema>;
 export type UpdateDepartamentoDTO = z.infer<typeof departamentoUpdateSchema>;

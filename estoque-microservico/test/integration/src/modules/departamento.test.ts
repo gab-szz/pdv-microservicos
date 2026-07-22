@@ -68,7 +68,7 @@ describe('Módulo de Departamento (Integração)', () => {
 
     test('Deve retornar 400 se o payload violar o Zod schema (nome curto)', async () => {
       const payload = {
-        nome: 'TI', // Zod exige min(4) no departamentoCreateSchema
+        nome: 'TI', // Zod exige min(4) no criarDepartamentoHttpSchema
         descricao: 'Descrição válida com mais de 6 caracteres',
       };
 

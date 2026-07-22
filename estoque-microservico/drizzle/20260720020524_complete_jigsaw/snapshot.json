@@ -1,0 +1,314 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "1a2fc78f-9912-4085-a980-38b06f185af2",
+  "prevIds": [
+    "d2c15513-9546-4a75-8959-e5db0071e68d"
+  ],
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "departamento",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "produto",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "departamento_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "descricao",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criado_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "alterado_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "excluido_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "departamento"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "always",
+        "name": "produto_id_seq",
+        "increment": "1",
+        "startWith": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "cache": 1,
+        "cycle": false
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "varchar(50)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "codigo_barras",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "varchar(50)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "sku",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "numeric(10,2)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "preco_custo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "numeric(10,2)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "preco_venda",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "name": "ativo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "departamento_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criado_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "alterado_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "excluido_em",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "departamento_pkey",
+      "schema": "public",
+      "table": "departamento",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "produto_pkey",
+      "schema": "public",
+      "table": "produto",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "nome"
+      ],
+      "nullsNotDistinct": false,
+      "name": "departamento_nome_unique",
+      "schema": "public",
+      "table": "departamento",
+      "entityType": "uniques"
+    },
+    {
+      "value": "\"preco_custo\" > 0",
+      "name": "ck_produto_preco_custo_positivo",
+      "entityType": "checks",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "value": "\"preco_venda\" > 0",
+      "name": "ck_produto_preco_venda_positivo",
+      "entityType": "checks",
+      "schema": "public",
+      "table": "produto"
+    },
+    {
+      "value": "\"preco_venda\" >= \"preco_custo\"",
+      "name": "ck_preco",
+      "entityType": "checks",
+      "schema": "public",
+      "table": "produto"
+    }
+  ],
+  "renames": []
+}

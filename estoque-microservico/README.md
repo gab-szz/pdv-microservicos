@@ -17,7 +17,6 @@ direction TB
 PRODUTO {
   int id ""
   string nome ""
-  text descricao ""
   string codigo_barras ""
   string sku ""
   decimal preco_custo ""

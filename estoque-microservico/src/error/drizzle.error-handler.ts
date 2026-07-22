@@ -1,7 +1,11 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { DatabaseError } from 'pg';
 
-export function drizzleErrorHandler(error: unknown, _request: FastifyRequest, reply: FastifyReply) {
+export function drizzleErrorHandler(
+  error: unknown,
+  _request: FastifyRequest,
+  reply: FastifyReply,
+): FastifyReply {
   const cause = error instanceof Error ? error.cause : undefined;
   console.log(error);
 
