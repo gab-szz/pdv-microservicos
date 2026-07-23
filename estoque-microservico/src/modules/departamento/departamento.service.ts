@@ -1,5 +1,9 @@
 import type { IDepartamentoRepositoryPort } from './domain/departamento.port.js';
 import { Departamento } from './domain/departamento.domain.js';
+import type {
+  AtualizarDepartamentoInput,
+  CriarDepartamentoInput,
+} from './domain/departamento.types.js';
 import type { DepartamentoIA } from './infra/IA/departamento.ia.js';
 import type { DepartamentoCache } from './infra/cache/departamento.redis.js';
 
@@ -15,7 +19,7 @@ export class DepartamentoService {
    * @param inp - Dados para criação do departamento
    * @returns Instãncia do departamento criado
    */
-  async criar(inp: { nome?: string; descricao?: string }): Promise<Departamento> {
+  async criar(inp: CriarDepartamentoInput): Promise<Departamento> {
     const departamento = Departamento.criar(inp);
 
     const resultado = await this.repository.inserir(departamento);
@@ -32,7 +36,7 @@ export class DepartamentoService {
    * @param inp - Dados para atualização do departamento
    * @returns Instãncia do departamento criado
    */
-  async atualizar(id: number, inp: { nome?: string; descricao?: string }): Promise<Departamento> {
+  async atualizar(id: number, inp: AtualizarDepartamentoInput): Promise<Departamento> {
     const departamento = await this.consultarPeloId(id);
     departamento.atualizar(inp);
 

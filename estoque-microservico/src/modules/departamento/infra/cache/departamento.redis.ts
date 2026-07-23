@@ -1,5 +1,6 @@
 import { redisClient } from '@/infra/redis/redis.js';
-import { Departamento, type DepartamentoDTO } from '../../domain/departamento.domain.js';
+import { Departamento } from '../../domain/departamento.domain.js';
+import type { HidratarDepartamentoInput } from '../../domain/departamento.types.js';
 
 export class DepartamentoCache {
   async salvar(dpto: Departamento[] | Departamento): Promise<void> {
@@ -13,7 +14,7 @@ export class DepartamentoCache {
   async obter(): Promise<Departamento[]> {
     let dptos = await redisClient.get('departamento');
     if (dptos) {
-      const listaDpto: DepartamentoDTO[] = JSON.parse(dptos);
+      const listaDpto: HidratarDepartamentoInput[] = JSON.parse(dptos);
       return listaDpto.map((d) => Departamento.hidratar(d));
     }
 
@@ -23,8 +24,9 @@ export class DepartamentoCache {
   async obterPeloId(id: number): Promise<Departamento | null> {
     const dpto = await redisClient.get(`departamento:${id}`);
     if (dpto) {
-      Departamento.hidratar(JSON.parse(dpto));
+      const departamento = Departamento.hidratar(JSON.parse(dpto));
       console.log(`cache hit = departamento:${id}`);
+      return departamento;
     }
     return null;
   }

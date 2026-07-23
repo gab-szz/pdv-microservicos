@@ -1,13 +1,20 @@
-// src/modules/produto/domain/departamento.domain.ts
+// src/modules/departamento/domain/departamento.domain.ts
 
-export interface DepartamentoDTO {
+import { ErroRegraNegocio } from '../../../error/custom/regra-negocio.error.js';
+import type {
+  AtualizarDepartamentoInput,
+  CriarDepartamentoInput,
+  HidratarDepartamentoInput,
+} from './departamento.types.js';
+
+type EstadoDepartamento = {
   id?: number;
   nome: string;
   descricao?: string;
-  criadoEm?: Date;
+  criadoEm: Date;
   alteradoEm?: Date;
   excluidoEm?: Date;
-}
+};
 
 /**
  * CLASSE DE DOMÍNIO
@@ -16,81 +23,95 @@ export interface DepartamentoDTO {
 export class Departamento {
   readonly id?: number;
   nome!: string;
-  descricao?: string | null;
+  descricao?: string;
   criadoEm?: Date;
-  alteradoEm?: Date | null;
-  excluidoEm?: Date | null;
+  alteradoEm?: Date;
+  excluidoEm?: Date;
 
-  private constructor(inp: Partial<DepartamentoDTO>) {
-    Object.assign(this, inp);
+  private constructor(input: EstadoDepartamento) {
+    this.id = input.id;
+    this.nome = input.nome;
+    this.descricao = input.descricao;
+    this.criadoEm = input.criadoEm;
+    this.alteradoEm = input.alteradoEm;
+    this.excluidoEm = input.excluidoEm;
   }
 
   /**
    * Cria um novo departamento
-   * @param inp Dados para criação do departamento
+   * @param input Dados para criação do departamento
    */
-  static criar(inp: { nome?: string; descricao?: string }) {
-    this.validarPropriedades(inp);
-    return new Departamento(inp);
+  static criar(input: CriarDepartamentoInput) {
+    this.validarNome(input.nome);
+    this.validarDescricao(input.descricao);
+
+    const departamento = new Departamento({ ...input, criadoEm: new Date() });
+
+    return departamento;
   }
 
   /**
-   * Transforma um objeto plano em instância de departamento
-   * @param inp Dados para hidratar o departamento
+   * Hidrata um departamento existente
+   * @param input Dados para hidratação do departamento
    */
-  static hidratar(inp: DepartamentoDTO) {
-    return new Departamento(inp);
+  static hidratar(input: HidratarDepartamentoInput) {
+    return new Departamento(input);
   }
 
   /**
    * Atualiza dados da instância do departamento
-   * @param inp Dados para atualização do departamento
+   * @param input Dados para atualização do departamento
    */
-  atualizar(inp: { nome?: string; descricao?: string }) {
-    const { nome, descricao } = inp;
+  atualizar(input: AtualizarDepartamentoInput) {
+    this.renomear(input.nome);
+    this.alterarDescricao(input.descricao);
+  }
 
-    this.nome = Departamento.validarNome(nome);
-    if (descricao) this.descricao = Departamento.validarDescricao(descricao);
+  /**
+   * Renomeia um departamento existente
+   */
+  renomear(nome: string) {
+    if (!this.id) throw new Error('Estado inválido de entidade');
+    Departamento.validarNome(nome);
+    this.nome = nome;
     this.alteradoEm = new Date();
   }
 
   /**
-   *
+   * Altera a descrição de um departamento existente
+   */
+  alterarDescricao(descricao?: string) {
+    Departamento.validarDescricao(descricao);
+    this.descricao = descricao;
+    this.alteradoEm = new Date();
+  }
+
+  /**
+   * Marca o departamento como excluído
    */
   excluir() {
+    if (!this.id) throw new Error('Estado inválido de entidade');
     this.excluidoEm = new Date();
   }
 
   /**
-   * Valida se todas as propriedades informadas pros campos de departamento são válidas
-   * @param props Dados a serem validados
+   * Funções de Validação e Regra de Negócio
    */
-  static validarPropriedades(props: Partial<DepartamentoDTO>) {
-    this.validarNome(props.nome);
-    this.validarDescricao(props.descricao);
+  static validarId(id: number) {
+    if (id <= 0) {
+      throw new ErroRegraNegocio('O ID deve ser um valor positivo');
+    }
   }
 
-  /**
-   * Valida se o nome informado é válido
-   * @param nome
-   * @returns
-   */
-  static validarNome(nome: string | undefined) {
-    if (!nome || nome.length < 3) {
-      throw new Error('O nome do departamento deve possuir ao menos 4 caracteres.');
+  static validarNome(nome: string) {
+    if (nome.length <= 3) {
+      throw new ErroRegraNegocio('O nome do departamento deve possuir no minimo 4 caracteres');
     }
-    return nome;
   }
 
-  /**
-   * Valida se a descrição informada é válida
-   * @param descricao
-   * @returns
-   */
-  static validarDescricao(descricao?: string | null | undefined) {
-    if (descricao && descricao.length < 3) {
-      throw new Error('A descricao do departamento deve possuir ao menos 6 caracteres.');
+  static validarDescricao(descricao?: string) {
+    if (descricao && descricao.length <= 5) {
+      throw new ErroRegraNegocio('A descricao do departamento deve possuir no minimo 6 caracteres');
     }
-    return descricao;
   }
 }

@@ -72,6 +72,10 @@ export class Produto {
     this.nome = nome;
   }
 
+  /**
+   * Muda o id do departamento do produto
+   * @param id 
+   */
   mudarDepartamento(id: number) {
     Produto.validarId(id);
     this.departamentoId = id;
