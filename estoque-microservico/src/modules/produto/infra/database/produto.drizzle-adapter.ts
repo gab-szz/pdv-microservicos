@@ -1,15 +1,10 @@
 import type { DB } from '@/infra/database/postres.drizzle.js';
 import { eq } from 'drizzle-orm';
 import type { IProdutoRepositoryPort } from '../../domain/produto.port.js';
-import {
-  produtoInsertSchema,
-  produtoTable,
-  produtoUpdateSchema,
-  type InsertProdutoDTO,
-  type UpdateProdutoDTO,
-} from '@/infra/database/schemas/produto.schema.js';
+import { produtoTable } from '@/infra/database/schemas/produto.schema.js';
 import type { Produto } from '../../domain/produto.domain.js';
-import { ProdutoMapper } from '../../domain/produto.mapper.js';
+import { ProdutoMapper } from './produto.mapper.js';
+import { DatabaseError } from 'pg';
 
 export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
   constructor(private readonly db: DB) {}
@@ -19,10 +14,13 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
    * @param inp - Dados para inserção do Produto
    * @returns Produto criado
    */
-  async inserir(inp: InsertProdutoDTO): Promise<Produto> {
-    const [row] = await this.db.insert(produtoTable).values(produtoInsertSchema.parse(inp)).returning();
+  async inserir(input: Produto): Promise<Produto> {
+    const [row] = await this.db
+      .insert(produtoTable)
+      .values(ProdutoMapper.paraInsert(input))
+      .returning();
 
-    if (!row) throw new Error();
+    if (!row) throw new DatabaseError('Erro desconhecido no banco de dados', 1, 'error');
     return ProdutoMapper.paraDominio(row);
   }
 
@@ -51,18 +49,14 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
    * @params ID para atualização e INP com dados a serem atualizados
    * @returns Produto atualizado
    */
-  async atualizar(id: number, inp: UpdateProdutoDTO): Promise<Produto> {
-    const { nome, codigoBarras, sku, precoCusto, precoVenda, departamentoId, ativo } = inp;
-
+  async atualizar(id: number, input: Produto): Promise<Produto> {
     const [row] = await this.db
       .update(produtoTable)
-      .set(
-        produtoUpdateSchema.parse({ nome, codigoBarras, sku, precoCusto, precoVenda, departamentoId, ativo }),
-      )
+      .set(ProdutoMapper.paraUpdate(input))
       .where(eq(produtoTable.id, id))
       .returning();
 
-    if (!row) throw new Error();
+    if (!row) throw new DatabaseError('Erro desconhecido no banco de dados', 1, 'error');
     return ProdutoMapper.paraDominio(row);
   }
 }
