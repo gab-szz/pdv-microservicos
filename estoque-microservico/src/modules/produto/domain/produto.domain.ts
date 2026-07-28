@@ -1,25 +1,29 @@
 // src/modules/produto/domain/produto.domain.ts
 
 import { ErroRegraNegocio } from '../../../error/custom/regra-negocio.error.js';
-import type { CriarProdutoInput } from './produto.types.js';
+import { Preco } from '../../../global/domain/value-objects/preco.vo.js';
 
 /**
  * TYPES EXCLUSIVOS
  */
 
-type EstadoProduto = {
-  id?: number;
+export type CriarProdutoInput = {
   nome: string;
   codigoBarras?: string;
   sku?: string;
-  precoCusto: number;
-  precoVenda: number;
-  ativo: boolean;
+  precoCusto: Preco;
+  precoVenda: Preco;
   departamentoId: number;
+};
+
+type EstadoProduto = CriarProdutoInput & {
+  id?: number;
+  ativo: boolean;
   criadoEm: Date;
   alteradoEm?: Date;
   excluidoEm?: Date;
 };
+
 type HidratarProdutoInput = EstadoProduto & { id: number };
 
 /**
@@ -31,8 +35,8 @@ export class Produto {
   nome!: string;
   codigoBarras?: string;
   sku?: string;
-  precoCusto!: number;
-  precoVenda!: number;
+  precoCusto!: Preco;
+  precoVenda!: Preco;
   ativo!: boolean;
   departamentoId!: number;
   criadoEm?: Date;
@@ -60,8 +64,6 @@ export class Produto {
     this.validarNome(input.nome);
     this.validarCodigoBarras(input.codigoBarras);
     this.validarSku(input.sku);
-    this.validarPrecoCusto(input.precoCusto);
-    this.validarPrecoVenda(input.precoVenda);
     this.validarPrecificacao(input.precoCusto, input.precoVenda);
     this.validarId(input.departamentoId);
 
@@ -136,20 +138,18 @@ export class Produto {
   /**
    * Atualizar preço de Custo
    */
-  atualizarPrecoCusto(preco: number) {
-    Produto.validarPrecoCusto(preco);
-    if (preco > this.precoVenda)
+  atualizarPrecoCusto(custo: Preco) {
+    if (custo.maiorQue(this.precoVenda))
       throw new ErroRegraNegocio('O preço de custo informado superior ao preço de venda atual');
-    this.precoCusto = preco;
+    this.precoCusto = custo;
     this.marcarAlteracao();
   }
 
   /**
    * Atualizar preço de Venda
    */
-  atualizarPrecoVenda(preco: number) {
-    Produto.validarPrecoVenda(preco);
-    if (preco < this.precoCusto)
+  atualizarPrecoVenda(preco: Preco) {
+    if (preco.menorQue(this.precoCusto))
       throw new ErroRegraNegocio('O preço de venda informado é inferior ao preço de custo atual');
     this.precoVenda = preco;
     this.marcarAlteracao();
@@ -160,7 +160,7 @@ export class Produto {
    * @param precoCusto Novo preço de custo do produto
    * @param precoVenda Novo preço de venda do produto
    */
-  atualizarPrecificacao(precoCusto: number, precoVenda: number) {
+  atualizarPrecificacao(precoCusto: Preco, precoVenda: Preco) {
     Produto.validarPrecificacao(precoCusto, precoVenda);
     this.precoCusto = precoCusto;
     this.precoVenda = precoVenda;
@@ -226,39 +226,18 @@ export class Produto {
     }
 
     if (!/^[A-Z0-9_-]+$/.test(sku)) {
-      throw new ErroRegraNegocio('O SKU deve conter apenas letras maiúsculas, números, hífen ou underline');
+      throw new ErroRegraNegocio(
+        'O SKU deve conter apenas letras maiúsculas, números, hífen ou underline',
+      );
     }
   }
-
-  /**
-   * Valida se o preço de custo informado é válido
-   * @param preco Preço de custo a ser validado
-   */
-  static validarPrecoCusto(preco: number) {
-    if (preco <= 0) {
-      throw new ErroRegraNegocio('O preço de custo deve ser um valor positivo');
-    }
-  }
-
-  /**
-   * Valida se o preço de venda informado é válido
-   */
-  static validarPrecoVenda(preco: number) {
-    if (preco <= 0) {
-      throw new ErroRegraNegocio('O preço de venda deve ser um valor positivo');
-    }
-  }
-
   /**
    * Valida se a precificação do produto é válida
    * @param precoCusto Preço de custo a ser validado
    * @param precoVenda Preço de venda a ser validado
    */
-  static validarPrecificacao(precoCusto: number, precoVenda: number) {
-    Produto.validarPrecoCusto(precoCusto);
-    Produto.validarPrecoVenda(precoVenda);
-
-    if (precoCusto > precoVenda) {
+  static validarPrecificacao(precoCusto: Preco, precoVenda: Preco) {
+    if (precoCusto.maiorQue(precoVenda)) {
       throw new ErroRegraNegocio('O preço de custo é superior ao preço de venda');
     }
   }
