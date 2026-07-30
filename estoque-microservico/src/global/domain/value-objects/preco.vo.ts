@@ -8,6 +8,10 @@ export class Preco {
     return new Preco(this.converterParaDecimalValido(valor));
   }
 
+  toString(): string {
+    return this.valor.toString();
+  }
+
   somar(outro: Preco): Preco {
     return Preco.criarDeDecimal(this.valor.add(outro.valor));
   }

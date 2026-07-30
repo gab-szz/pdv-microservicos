@@ -1,7 +1,7 @@
 import { generateText, isStepCount, tool } from 'ai';
-import { DepartamentoDrizzleAdapter } from '../database/departamento.drizzle-adapter.js';
-import { openRouterApi } from '../../../../infra/openRouter/index.js';
-import { db } from '../../../../infra/database/postres.drizzle.js';
+import { DepartamentoDrizzleAdapter } from '../persistence/departamento.drizzle-adapter.js';
+import { openRouterApi } from '../../../../../infra/openRouter/index.js';
+import { db } from '../../../../../infra/database/postres.drizzle.js';
 import { z } from 'zod';
 
 export class DepartamentoIA {

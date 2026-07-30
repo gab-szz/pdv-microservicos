@@ -1,12 +1,8 @@
-import type {
-  InsertDepartamentoDTO,
-  UpdateDepartamentoDTO,
-} from '@/infra/database/schemas/departamento.schema.js';
 import type { Departamento } from './departamento.domain.js';
 
 export interface IDepartamentoRepositoryPort {
-  inserir(inp: InsertDepartamentoDTO): Promise<Departamento>;
-  atualizar(id: number, inp: UpdateDepartamentoDTO): Promise<Departamento>;
+  inserir(input: Departamento): Promise<Departamento>;
+  atualizar(id: number, input: Departamento): Promise<Departamento>;
   selecionarTodos(): Promise<Departamento[]>;
   selecionarPeloId(id: number): Promise<Departamento | null>;
 }

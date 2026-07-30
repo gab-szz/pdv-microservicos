@@ -1,8 +1,8 @@
 import type { DB } from '@/infra/database/postres.drizzle.js';
 import { eq } from 'drizzle-orm';
-import type { IProdutoRepositoryPort } from '../../domain/produto.port.js';
+import type { IProdutoRepositoryPort } from '../../../domain/produto.port.js';
 import { produtoTable } from '@/infra/database/schemas/produto.schema.js';
-import type { Produto } from '../../domain/produto.domain.js';
+import type { Produto } from '../../../domain/produto.domain.js';
 import { ProdutoMapper } from './produto.mapper.js';
 import { DatabaseError } from 'pg';
 

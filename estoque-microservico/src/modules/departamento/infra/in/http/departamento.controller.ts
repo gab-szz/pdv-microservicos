@@ -1,17 +1,15 @@
-//import { departamentoSelectSchema } from '@/infra/schemas/departamento.schema.js';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { criarDepartamentoHttpSchema } from './departamento.schema.js';
-import { db } from '@/infra/database/postres.drizzle.js';
 import { departamentoSelectSchema } from '@/infra/database/schemas/departamento.schema.js';
-import { departamentoContainer } from './departamento.container.js';
+import departamentoModule from '../../../departamento.module.js';
 import z from 'zod';
 import { idSchema } from '@/global/zod.schemas.js';
 
 function departamentoRoutes(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
 
-  const service = departamentoContainer(db);
+  const service = departamentoModule.service();
 
   // Cria um novo departamento
   app.post(

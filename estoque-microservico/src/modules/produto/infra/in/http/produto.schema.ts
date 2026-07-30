@@ -7,6 +7,7 @@ export const criarProdutoHttpSchema = z
     sku: z.string().trim().min(1).optional(),
     precoCusto: z.number().positive(),
     precoVenda: z.number().positive(),
-    departamento: z.number().int().positive(),
+    departamentoId: z.number().int().positive(),
   })
   .strict();
+export type CriarProdutoHttpDTO = z.infer<typeof criarProdutoHttpSchema>;

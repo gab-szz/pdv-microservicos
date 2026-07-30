@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
-import produtoRoutes from './modules/produto/produto.controller.js';
+import produtoRoutes from './modules/produto/infra/in/http/produto.controller.js';
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
-import departamentoRoutes from './modules/departamento/departamento.controller.js';
+import departamentoRoutes from './modules/departamento/infra/in/http/departamento.controller.js';
 import { DrizzleQueryError } from 'drizzle-orm';
 import { drizzleErrorHandler } from './error/drizzle.error-handler.js';
 import { ErroRegraNegocio } from './error/custom/regra-negocio.error.js';

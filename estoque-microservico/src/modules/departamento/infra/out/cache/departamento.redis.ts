@@ -1,6 +1,6 @@
 import { redisClient } from '@/infra/redis/redis.js';
-import { Departamento } from '../../domain/departamento.domain.js';
-import type { HidratarDepartamentoInput } from '../../domain/departamento.types.js';
+import { Departamento } from '../../../domain/departamento.domain.js';
+import type { HidratarDepartamentoInput } from '../../../domain/departamento.types.js';
 
 export class DepartamentoCache {
   async salvar(dpto: Departamento[] | Departamento): Promise<void> {
