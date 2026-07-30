@@ -4,7 +4,7 @@ import { criarDepartamentoHttpSchema } from './departamento.schema.js';
 import { departamentoSelectSchema } from '@/infra/database/schemas/departamento.schema.js';
 import departamentoModule from '../../../departamento.module.js';
 import z from 'zod';
-import { idSchema } from '@/global/zod.schemas.js';
+import { idSchema } from '@gab-szz/pdv-schemas';
 
 function departamentoRoutes(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();

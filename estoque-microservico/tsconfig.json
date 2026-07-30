@@ -1,5 +1,5 @@
 {
-  "include": ["./src/**/*", "./drizzle.config.ts"],
+  "include": ["./src/**/*", "./test/**/*", "./drizzle.config.ts", "./vitest.config.ts"],
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
 
@@ -7,7 +7,7 @@
     "noEmit": true,
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
 
     // Environment Settings
@@ -33,6 +33,6 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-  },
+    "skipLibCheck": true
+  }
 }

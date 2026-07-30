@@ -11,3 +11,14 @@ export const criarProdutoHttpSchema = z
   })
   .strict();
 export type CriarProdutoHttpDTO = z.infer<typeof criarProdutoHttpSchema>;
+
+export const produtoHttpSchema = z.object({
+  id: z.number(),
+  nome: z.string(),
+  codigoBarras: z.string(),
+  sku: z.string().trim(),
+  precoCusto: z.number(),
+  precoVenda: z.number(),
+  ativo: z.boolean(),
+  departamentoId: z.number().int(),
+});

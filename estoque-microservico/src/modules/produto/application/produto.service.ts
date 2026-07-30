@@ -14,4 +14,12 @@ export class ProdutoService {
 
     return this.repository.inserir(produto);
   }
+
+  async consultarPeloId(id: number): Promise<Produto> {
+    const produto = await this.repository.selecionarPeloId(id);
+    if (!produto) {
+      throw new Error(`Produto com id ${id} não encontrado`);
+    }
+    return produto;
+  }
 }

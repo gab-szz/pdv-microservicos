@@ -1,0 +1,12 @@
+{
+  "name": "projeto-pdv",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "pdv-microservico",
+    "estoque-microservico"
+  ],
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

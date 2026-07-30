@@ -1,0 +1,21 @@
+{
+  "name": "@gab-szz/pdv-schemas",
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.0"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  }
+}
