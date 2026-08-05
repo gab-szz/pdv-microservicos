@@ -6,3 +6,4 @@ export type CadastrarProdutoInput = {
   precoVenda: number;
   departamentoId: number;
 };
+export type AtualizarProdutoInput = CadastrarProdutoInput & { id: number };

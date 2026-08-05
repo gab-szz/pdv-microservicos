@@ -48,6 +48,20 @@ export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
   }
 
   /**
+   * Verifica se um departamento existe no Banco de Dados através do id
+   * @param id Identificador único do Departamento
+   * @returns Boolean
+   */
+  async existe(id: number): Promise<boolean> {
+    const [row] = await this.db
+      .select()
+      .from(departamentoTable)
+      .where(eq(departamentoTable.id, id));
+
+    return row ? true : false;
+  }
+
+  /**
    * Atualiza um departamento através do ID
    * @param id ID para atualização
    * @param input Dados a serem atualizados
