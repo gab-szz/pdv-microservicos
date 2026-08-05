@@ -12,6 +12,10 @@ export class Preco {
     return this.valor.toString();
   }
 
+  toNumber(): number {
+    return this.valor.toNumber();
+  }
+
   somar(outro: Preco): Preco {
     return Preco.criarDeDecimal(this.valor.add(outro.valor));
   }

@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import type { IProdutoRepositoryPort } from '../../../domain/produto.port.js';
 import { produtoTable } from '@/infra/database/schemas/produto.schema.js';
 import type { Produto } from '../../../domain/produto.domain.js';
-import { ProdutoMapper } from './produto.mapper.js';
+import { ProdutoDrizzleMapper } from './produto.mapper.js';
 import { DatabaseError } from 'pg';
 
 export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
@@ -17,11 +17,11 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
   async inserir(input: Produto): Promise<Produto> {
     const [row] = await this.db
       .insert(produtoTable)
-      .values(ProdutoMapper.paraInsert(input))
+      .values(ProdutoDrizzleMapper.paraInsert(input))
       .returning();
 
     if (!row) throw new DatabaseError('Erro desconhecido no banco de dados', 1, 'error');
-    return ProdutoMapper.paraDominio(row);
+    return ProdutoDrizzleMapper.paraDominio(row);
   }
 
   /**
@@ -30,7 +30,7 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
    */
   async selecionarTodos(): Promise<Produto[]> {
     const rows = await this.db.select().from(produtoTable);
-    return rows ? rows.map((row) => ProdutoMapper.paraDominio(row)) : [];
+    return rows ? rows.map((row) => ProdutoDrizzleMapper.paraDominio(row)) : [];
   }
 
   /**
@@ -41,7 +41,7 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
   async selecionarPeloId(id: number): Promise<Produto | null> {
     const [row] = await this.db.select().from(produtoTable).where(eq(produtoTable.id, id));
 
-    return row ? ProdutoMapper.paraDominio(row) : null;
+    return row ? ProdutoDrizzleMapper.paraDominio(row) : null;
   }
 
   /**
@@ -52,11 +52,11 @@ export class ProdutoDrizzleAdapter implements IProdutoRepositoryPort {
   async atualizar(id: number, input: Produto): Promise<Produto> {
     const [row] = await this.db
       .update(produtoTable)
-      .set(ProdutoMapper.paraUpdate(input))
+      .set(ProdutoDrizzleMapper.paraUpdate(input))
       .where(eq(produtoTable.id, id))
       .returning();
 
     if (!row) throw new DatabaseError('Erro desconhecido no banco de dados', 1, 'error');
-    return ProdutoMapper.paraDominio(row);
+    return ProdutoDrizzleMapper.paraDominio(row);
   }
 }

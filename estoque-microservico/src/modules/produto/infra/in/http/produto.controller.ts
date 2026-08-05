@@ -3,6 +3,7 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { criarProdutoHttpSchema, produtoHttpSchema } from './produto.schema.js';
 import produtoModule from '../../../produto.module.js';
 import { idSchema } from '@gab-szz/pdv-schemas';
+import { ProdutoHttpMapper } from './produto.mapper.js';
 
 function produtoRoutes(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
@@ -17,15 +18,15 @@ function produtoRoutes(fastify: FastifyInstance) {
     {
       schema: {
         body: criarProdutoHttpSchema,
-        response: {},
+        response: { 200: produtoHttpSchema },
       },
     },
     async (request, reply) => {
       const produtoInput = request.body;
 
-      const output = service.cadastrar(produtoInput);
+      const output = await service.cadastrar(produtoInput);
 
-      return reply.code(200).send(output);
+      return reply.code(200).send(ProdutoHttpMapper.paraResposta(output));
     },
   );
 
@@ -37,15 +38,15 @@ function produtoRoutes(fastify: FastifyInstance) {
     {
       schema: {
         params: idSchema,
-        response: produtoHttpSchema,
+        response: { 200: produtoHttpSchema },
       },
     },
     async (request, reply) => {
-      const id = request.id;
+      const { id } = request.params;
 
-      const produto = service.consultarPeloId(Number(id));
+      const produto = await service.consultarPeloId(id);
 
-      return reply.code(200).send(produto);
+      return reply.code(200).send(ProdutoHttpMapper.paraResposta(produto));
     },
   );
 }

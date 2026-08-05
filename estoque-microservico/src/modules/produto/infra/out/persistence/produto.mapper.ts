@@ -8,7 +8,7 @@ import {
 } from '../../../../../infra/database/schemas/produto.schema.js';
 import { Produto } from '../../../domain/produto.domain.js';
 
-export class ProdutoMapper {
+export class ProdutoDrizzleMapper {
   static paraDominio(row: typeof produtoTable.$inferSelect) {
     return Produto.hidratar({
       ...row,
