@@ -1,9 +1,13 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import fastify from 'fastify';
-import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from 'fastify-type-provider-zod';
+import {
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider,
+} from 'fastify-type-provider-zod';
 import { departamentoTable } from '@/infra/database/schemas/departamento.schema.js';
 import { db } from '@/infra/database/postres.drizzle.js';
-import departamentoRoutes from '@/modules/departamento/departamento.controller.js';
+import departamentoRoutes from '@/modules/departamento/infra/in/http/departamento.controller.js';
 
 describe('Módulo de Departamento (Integração)', () => {
   let app: any;
