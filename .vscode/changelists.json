@@ -3,12 +3,34 @@
     {
       "name": "Default",
       "files": [
-        "estoque-microservico/src/modules/produto/application/produto.service.ts",
-        ".cursor/rules/markdown-mermaid.mdc",
         "docs/ADR/README.md",
         "docs/ROADMAP.md",
         ".vscode/changelists.json",
-        ".gitignore"
+        ".cursor/rules/engineering-backlog.mdc",
+        "docs/TASK-TEMPLATE.md",
+        "docs/journal/README.md",
+        "docs/journal/TEMPLATE.md",
+        "docs/milestones/M00-monorepo.md",
+        "docs/milestones/M01-infra-minima.md",
+        "docs/milestones/M02-estoque-completo.md",
+        "docs/milestones/M03-infra-completa.md",
+        "docs/milestones/M04-mensageria-outbox.md",
+        "docs/milestones/M05-pdv-primeiro-e2e.md",
+        "docs/milestones/M06-shared-kernel.md",
+        "docs/milestones/M07-saga.md",
+        "docs/milestones/M08-bullmq.md",
+        "docs/milestones/M09-cache-redis.md",
+        "docs/milestones/M10-sync-mvp.md",
+        "docs/milestones/M11-sync-completo.md",
+        "docs/milestones/M12-observabilidade.md",
+        "docs/milestones/M13-autenticacao.md",
+        "docs/milestones/M14-ci-e2e.md",
+        "docs/milestones/M15-producao.md",
+        "docs/milestones/README.md",
+        "docs/tasks/M00/T001-pnpm-workspaces.md",
+        "docs/tasks/M00/T002-root-scripts.md",
+        "docs/tasks/M00/T003-pdv-schemas-workspace.md",
+        "docs/tasks/README.md"
       ]
     }
   ],

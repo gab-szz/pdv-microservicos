@@ -1,0 +1,34 @@
+---
+description: Backlog de engenharia — ROADMAP, milestones, tasks e journal
+globs: docs/**/*
+alwaysApply: false
+---
+
+# Backlog de engenharia
+
+## Hierarquia
+
+```text
+ROADMAP.md     → visão, histórias de negócio, decisões
+milestones/    → entregas (M00, M01, …)
+tasks/MXX/     → tickets de 2–6h (T001, T002, …)
+ADR/           → só quando rejeitei alternativa séria
+journal/       → retrospectiva pós-milestone
+```
+
+## Ao implementar
+
+1. Ler milestone atual em `docs/milestones/`
+2. Pegar **uma task** em `docs/tasks/MXX/` — nunca a milestone inteira de uma vez
+3. Seguir cabeçalhos de `docs/TASK-TEMPLATE.md`
+4. Task > 6h → dividir em novas tasks ou sub-milestone
+5. ADR só se houve escolha entre alternativas reais (ex.: Rabbit vs Kafka)
+
+## Foco
+
+Priorizar **história de negócio completa** por milestone, não “terminar tecnologia”.
+Extrair Shared Kernel **depois** que dois serviços duplicam código — não antes.
+
+## Correlation ID
+
+Introduzir `traceId` / `correlationId` / `requestId` na milestone de mensageria (M04), antes de OpenTelemetry.

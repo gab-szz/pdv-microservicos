@@ -1,59 +1,50 @@
 # Architecture Decision Records (ADR)
 
-Registro curto das **minhas decisões arquiteturais** — o que escolhi, por quê, e o que descartei.
+Registro das **minhas decisões arquiteturais** — o que escolhi, por quê, e o que descartei.
 
-Evito reabrir debates já resolvidos e documento trade-offs para quem for ler o repositório.
+## Regra principal
 
-## Quando escrevo um ADR
+**Só escrevo ADR quando rejeitei pelo menos uma alternativa séria.**
 
-- Escolha de broker (RabbitMQ vs Kafka vs Redis Pub/Sub)
-- Outbox vs publish direto
-- Estratégia de cursor/diff no sync engine
-- Coreografia vs orquestração na saga
-- 1 banco por serviço vs shared DB
+| Situação                                                   | Ação             |
+| ---------------------------------------------------------- | ---------------- |
+| Comparei Rabbit vs Redis Streams vs Kafka e escolhi Rabbit | ADR              |
+| “Usei Outbox porque o ROADMAP manda”                       | Journal, não ADR |
+| Implementação óbvia sem trade-off                          | Nada             |
 
 ## Formato
 
-Copio o template abaixo para `docs/ADR/NNN-titulo-curto.md`.
+Copio [`TASK-TEMPLATE.md`](../TASK-TEMPLATE.md) não — uso o template abaixo em `docs/ADR/NNN-titulo.md`.
 
 ```markdown
-# ADR-NNN: Título da decisão
+# ADR-NNN: Título
 
-**Status:** proposta | aceita | substituída por ADR-XXX  
+**Status:** proposta | aceita | substituída  
 **Data:** YYYY-MM-DD  
-**Contexto:** Onda X do ROADMAP
+**Milestone:** MXX
 
 ## Contexto
 
-Por que precisei decidir isso? Qual trade-off estava em jogo?
+## Alternativas consideradas
+
+| Alternativa | Prós | Contras | Por que não |
+| ----------- | ---- | ------- | ----------- |
 
 ## Decisão
 
-O que escolhi?
-
 ## Consequências
-
-### Positivas
-
-- ...
-
-### Negativas / custo
-
-- ...
-
-## Alternativas que descartei
-
-| Alternativa | Por que não |
-| ----------- | ----------- |
-| ...         | ...         |
 ```
 
-## ADRs que pretendo escrever
+## ADRs planejados
 
-| ID  | Título                                              | Onda |
-| --- | --------------------------------------------------- | ---- |
-| 001 | RabbitMQ vs Redis Pub/Sub para eventos de domínio   | 4    |
-| 002 | Outbox Pattern para publicação confiável            | 4    |
-| 003 | Saga por coreografia (venda ↔ estoque)              | 6    |
-| 004 | Cursor e estratégia de diff no sync engine          | 7    |
-| 005 | Timestamp vs version vs hash para detectar mudanças | 7    |
+| ID  | Título                           | Milestone | Alternativas a comparar |
+| --- | -------------------------------- | --------- | ----------------------- |
+| 001 | RabbitMQ para eventos de domínio | M04       | Redis Streams, Kafka    |
+| 002 | Outbox Pattern                   | M04       | Publish direto, CDC     |
+| 003 | Saga por coreografia             | M07       | Orquestrador central    |
+| 004 | Cursor e diff no sync            | M11       | Polling vs webhook      |
+| 005 | Timestamp vs version vs hash     | M11       | Só timestamp            |
+
+## ADRs escritos
+
+_(nenhum ainda)_
