@@ -1,0 +1,15 @@
+{
+  "changelists": [
+    {
+      "name": "Default",
+      "files": [
+        "estoque-microservico/src/modules/produto/application/produto.service.ts",
+        ".cursor/rules/markdown-mermaid.mdc",
+        "docs/ADR/README.md",
+        "docs/ROADMAP.md",
+        ".vscode/changelists.json"
+      ]
+    }
+  ],
+  "active": "Default"
+}

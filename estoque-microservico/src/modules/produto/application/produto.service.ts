@@ -60,6 +60,10 @@ export class ProdutoService {
   }
 
   /**
+   * Excluir um produto
+   */
+
+  /**
    * Verifica através do ID se um departamento existe
    * @param deptoId ID do departamento
    * @throws ErroRegraNegocio - Departamento informado não existe.
