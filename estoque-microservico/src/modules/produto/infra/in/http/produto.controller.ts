@@ -60,7 +60,7 @@ function produtoRoutes(fastify: FastifyInstance) {
    */
 
   app.get(
-    '/:id',
+    '/',
     {
       schema: {
         response: { 200: z.array(produtoHttpSchema) },
