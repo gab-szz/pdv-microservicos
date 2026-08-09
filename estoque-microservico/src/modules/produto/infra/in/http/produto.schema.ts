@@ -1,5 +1,9 @@
 import z from 'zod';
 
+/**
+ * REQUEST
+ */
+
 export const criarProdutoHttpSchema = z
   .object({
     nome: z.string().trim().min(4).max(150),
@@ -11,6 +15,13 @@ export const criarProdutoHttpSchema = z
   })
   .strict();
 export type CriarProdutoHttpDTO = z.infer<typeof criarProdutoHttpSchema>;
+
+export const atualizarProdutoHttpSchema = criarProdutoHttpSchema;
+export type AtualizarProdutoHttpDTO = z.infer<typeof atualizarProdutoHttpSchema>;
+
+/**
+ * REPLY
+ */
 
 export const produtoHttpSchema = z.object({
   id: z.number(),

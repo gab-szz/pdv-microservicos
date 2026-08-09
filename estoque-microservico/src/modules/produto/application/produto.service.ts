@@ -62,7 +62,12 @@ export class ProdutoService {
   /**
    * Excluir um produto
    */
+  async excluir(id: number) {
+    const produto = await this.consultarPeloId(id);
+    produto.excluir();
 
+    return this.repository.atualizar(id, produto);
+  }
   /**
    * Verifica através do ID se um departamento existe
    * @param deptoId ID do departamento
