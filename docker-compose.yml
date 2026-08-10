@@ -1,0 +1,17 @@
+services:
+  redis:
+    image: redis:7.4
+    container_name: redis_pdv
+    ports:
+      - "6380:6379"
+    networks:
+      - pdv-network
+    volumes:
+      - redis_data:/data
+
+networks:
+  pdv-network:
+    driver: bridge
+
+volumes:
+  redis_data:

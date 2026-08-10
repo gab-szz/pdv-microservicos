@@ -8,5 +8,10 @@ const pool = new Pool({
   connectionString: env.DATABASE_URL,
 });
 
+export function testarConexaoPostgres() {
+  db.execute('SELECT 1');
+  console.log('Conexão com postgres estabelecida com sucesso');
+}
+
 export const db = drizzle({ client: pool, jit: true });
 export type DB = typeof db;

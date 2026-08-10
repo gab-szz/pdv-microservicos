@@ -1,5 +1,10 @@
 {
-  "include": ["./src/**/*", "./test/**/*", "./drizzle.config.ts", "./vitest.config.ts"],
+  "include": [
+    "./src/**/*",
+    "./test/**/*",
+    "./drizzle.config.ts",
+    "./vitest.config.ts"
+  ],
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
 

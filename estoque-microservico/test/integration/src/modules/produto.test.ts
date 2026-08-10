@@ -2,7 +2,6 @@ import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'vitest'
 import produtoRoutes from '../../../../src/modules/produto/infra/in/http/produto.controller.js';
 import { instanciarModuloParaTestes } from '../../utils.js';
 import { db } from '../../../../src/infra/database/postres.drizzle.js';
-import { departamentoTable } from '../../../../src/infra/database/schemas/departamento.schema.js';
 import { produtoTable } from '../../../../src/infra/database/schemas/produto.schema.js';
 
 describe('Módulo de Produtos (Integração)', () => {

@@ -1,13 +1,19 @@
 import { env } from '@/config/env.js';
 import { Redis } from 'ioredis';
 
-export const redisClient = new Redis(env.REDIS_URL);
+export const redisClient = new Redis(env.REDIS_URL, { lazyConnect: true });
 
 export async function testarConexaoRedis() {
-  const msg = await redisClient.ping();
-  if (msg === 'PONG') {
+  try {
+    await redisClient.connect();
+    const msg = await redisClient.ping();
+
+    if (msg !== 'PONG') {
+      throw new Error(`Ping Redis retornou valor inesperado: ${msg}`);
+    }
+
     console.log('Conexão com Redis estabelecida com sucesso.');
-  } else {
-    console.error('Falha ao conectar com Redis.');
+  } catch (error) {
+    throw error;
   }
 }
