@@ -42,6 +42,6 @@
     "radash": "^12.1.1",
     "validator": "^13.15.35",
     "zod": "^4.4.3",
-    "@gab-szz/pdv-schemas": "*"
+    "@gab-szz/pdv-schemas": "workspace:*"
   }
 }

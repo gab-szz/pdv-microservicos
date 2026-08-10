@@ -1,0 +1,7 @@
+packages:
+  - "estoque-microservico"
+  - "pdv-microservico"
+  - "packages/*"
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true

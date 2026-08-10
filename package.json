@@ -1,11 +1,13 @@
 {
   "name": "projeto-pdv",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "pdv-microservico",
-    "estoque-microservico"
-  ],
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "build": "pnpm -r --if-present run build",
+    "dev:estoque": "pnpm --filter estoque-microservico dev",
+    "test": "pnpm -r --if-present run test",
+    "test:integration": "pnpm --filter estoque-microservico test:integration"
+  },
   "devDependencies": {
     "typescript": "~5.9.3"
   }
