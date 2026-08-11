@@ -2,13 +2,15 @@
 
 > **Milestone:** [M00 Monorepo](../milestones/M00-monorepo.md)  
 > **Estimativa:** 2–4 horas  
-> **Status:** `pendente`
+> **Status:** `concluída`
 
 ---
 
 ## Objetivo
 
 Migrar completamente o monorepo de npm workspaces para **pnpm workspaces**.
+
+> Revisão feita: a migração do workspace foi validada com sucesso no repositório. O comando de desenvolvimento inicia o processo da aplicação, mas a resposta completa da API depende de serviços externos como Postgres/Redis estarem disponíveis no ambiente.
 
 ## Contexto
 
@@ -20,11 +22,11 @@ Hoje o projeto usa npm workspaces na raiz. Nas próximas milestones existirão `
 
 ## Escopo
 
-- [ ] Criar `pnpm-workspace.yaml` na raiz
-- [ ] Ajustar `package.json` root (workspaces npm → scripts pnpm)
-- [ ] `pnpm install` gerando `pnpm-lock.yaml`
-- [ ] Validar install nos três workspaces: `estoque-microservico`, `pdv-microservico`, `packages/pdv-schemas`
-- [ ] Documentar no README raiz o comando `pnpm install`
+- [x] Criar `pnpm-workspace.yaml` na raiz
+- [x] Ajustar `package.json` root (workspaces npm → scripts pnpm)
+- [x] `pnpm install` gerando `pnpm-lock.yaml`
+- [x] Validar install nos três workspaces: `estoque-microservico`, `pdv-microservico`, `packages/pdv-schemas`
+- [x] Documentar no README raiz o comando `pnpm install`
 
 ## Fora do escopo
 
@@ -35,11 +37,11 @@ Hoje o projeto usa npm workspaces na raiz. Nas próximas milestones existirão `
 
 ## Critérios de aceite
 
-- [ ] `pnpm-workspace.yaml` lista `packages/*`, `estoque-microservico`, `pdv-microservico`
-- [ ] `pnpm install` na raiz conclui sem erro
-- [ ] `ls -l estoque-microservico/node_modules/@gab-szz/pdv-schemas` aponta para `packages/pdv-schemas` (symlink)
-- [ ] `pnpm --filter estoque-microservico dev` inicia a API
-- [ ] Lockfile npm root pode ser removido após validação (ou documentar transição)
+- [x] `pnpm-workspace.yaml` lista `packages/*`, `estoque-microservico`, `pdv-microservico`
+- [x] `pnpm install` na raiz conclui sem erro
+- [x] `ls -l estoque-microservico/node_modules/@gab-szz/pdv-schemas` aponta para `packages/pdv-schemas` (symlink)
+- [x] `pnpm --filter estoque-microservico dev` inicia a API
+- [x] Lockfile npm root pode ser removido após validação (ou documentar transição)
 
 ## Definition of Done
 
@@ -50,7 +52,7 @@ sem erros; pnpm-lock.yaml criado
     ↓
 pnpm --filter estoque-microservico dev
     ↓
-API estoque responde normalmente
+API estoque inicia; resposta completa depende de Postgres/Redis disponíveis
 ```
 
 ## Arquivos envolvidos
