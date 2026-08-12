@@ -2,7 +2,7 @@
 
 > **Milestone:** [M00 Monorepo](../milestones/M00-monorepo.md)  
 > **Estimativa:** 2–3 horas  
-> **Status:** `pendente`
+> **Status:** `em andamento`
 
 ---
 
@@ -20,9 +20,10 @@ Evito memorizar `--filter` em todo milestone; preparo `pnpm test:all` e `pnpm in
 
 ## Escopo
 
-- [ ] `package.json` root: `dev:estoque`, `test:all`, `build:all`, `infra:up` (stub ou real)
-- [ ] `infra:up` pode ser placeholder apontando para compose (M01 implementa compose)
-- [ ] Documentar scripts no README raiz
+- [x] `package.json` root: `dev:estoque` já existe e está funcional
+- [x] `package.json` root: adicionar `test:all` e `build:all` (ou com recursividade)
+- [x] `package.json` root: adicionar `infra:up` (stub ou real)
+- [x] Documentar scripts no README raiz
 
 ## Fora do escopo
 
@@ -31,9 +32,9 @@ Evito memorizar `--filter` em todo milestone; preparo `pnpm test:all` e `pnpm in
 
 ## Critérios de aceite
 
-- [ ] `pnpm test:all` roda testes dos workspaces que têm script `test`
-- [ ] `pnpm dev:estoque` equivale a `pnpm --filter estoque-microservico dev`
-- [ ] README lista cada script e o que faz
+- [x] `pnpm test:all` roda testes dos workspaces que têm script `test`
+- [x] `pnpm dev:estoque` equivale a `pnpm --filter estoque-microservico dev`
+- [x] README lista cada script e o que faz
 
 ## Definition of Done
 
@@ -46,6 +47,8 @@ pnpm dev:estoque
     ↓
 API sobe
 ```
+
+> Status atual: o script `dev:estoque` já está presente; o que ainda falta é completar `test:all`, `build:all`, `infra:up` e documentar os comandos no README.
 
 ## Arquivos envolvidos
 

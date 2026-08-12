@@ -8,6 +8,7 @@ services:
       - pdv-network
     volumes:
       - redis_data:/data
+    profiles: ["infra"]
 
 networks:
   pdv-network:

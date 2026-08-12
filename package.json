@@ -6,7 +6,8 @@
     "build": "pnpm -r --if-present run build",
     "dev:estoque": "pnpm --filter estoque-microservico dev",
     "test": "pnpm -r --if-present run test",
-    "test:integration": "pnpm --filter estoque-microservico test:integration"
+    "test:integration": "pnpm --filter estoque-microservico test:integration",
+    "infra:up": "docker compose --profile infra up -d"
   },
   "devDependencies": {
     "typescript": "~5.9.3"

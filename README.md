@@ -25,3 +25,4 @@ No arquivo `pnpm-workspace.yaml`, localizado na raiz do repositório, estão lis
 - `dev-pdv` para iniciar o microserviço de PDV em modo de desenvolvimento;
 - `test` para executar os testes unitários.
 - `test-integration` para executar os testes de integração.
+- `infra:up` para subir a infraestrutura necessária via Docker Compose.

@@ -20,10 +20,10 @@ Validar o ciclo build → consumo local antes de criar `domain-errors` e outros 
 
 ## Escopo
 
-- [ ] `estoque-microservico/package.json`: `"@gab-szz/pdv-schemas": "workspace:*"`
-- [ ] Build do pacote: `pnpm --filter @gab-szz/pdv-schemas build`
-- [ ] Import no estoque continua funcionando
-- [ ] Confirmar symlink em `node_modules`
+- [x] `estoque-microservico/package.json`: `"@gab-szz/pdv-schemas": "workspace:*"`
+- [x] Build do pacote: `pnpm --filter @gab-szz/pdv-schemas build`
+- [x] Import no estoque continua funcionando
+- [x] Confirmar symlink em `node_modules`
 
 ## Fora do escopo
 
@@ -32,9 +32,9 @@ Validar o ciclo build → consumo local antes de criar `domain-errors` e outros 
 
 ## Critérios de aceite
 
-- [ ] Symlink correto após `pnpm install`
-- [ ] Alterar export em `pdv-schemas`, rebuild, estoque vê mudança
-- [ ] Zero import `../../packages/...`
+- [x] Symlink correto após `pnpm install`
+- [x] Alterar export em `pdv-schemas`, rebuild, estoque vê mudança
+- [x] Zero import `../../packages/...`
 
 ## Definition of Done
 
