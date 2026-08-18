@@ -39,11 +39,11 @@ Copio [`TASK-TEMPLATE.md`](../TASK-TEMPLATE.md) não — uso o template abaixo e
 
 | ID  | Título                           | Milestone | Alternativas a comparar |
 | --- | -------------------------------- | --------- | ----------------------- |
-| 001 | RabbitMQ para eventos de domínio | M04       | Redis Streams, Kafka    |
-| 002 | Outbox Pattern                   | M04       | Publish direto, CDC     |
-| 003 | Saga por coreografia             | M07       | Orquestrador central    |
-| 004 | Cursor e diff no sync            | M11       | Polling vs webhook      |
-| 005 | Timestamp vs version vs hash     | M11       | Só timestamp            |
+| 001 | RabbitMQ para eventos de domínio | M05       | Redis Streams, Kafka    |
+| 002 | Outbox Pattern                   | M05       | Publish direto, CDC     |
+| 003 | Saga por coreografia             | M08       | Orquestrador central    |
+| 004 | Cursor e diff no sync            | M12       | Polling vs webhook      |
+| 005 | Timestamp vs version vs hash     | M12       | Só timestamp            |
 
 ## ADRs escritos
 

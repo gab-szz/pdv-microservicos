@@ -27,7 +27,7 @@ Evito memorizar `--filter` em todo milestone; preparo `pnpm test:all` e `pnpm in
 ## Fora do escopo
 
 - Docker compose completo (M01)
-- CI GitHub Actions (M14)
+- CI GitHub Actions (M15)
 
 ## Critérios de aceite
 

@@ -20,14 +20,17 @@ Estoque autocontido: estoque, movimentação, regras, suite integração.
 
 - API estoque fechada; Testcontainers verde local
 
-## Tasks (a detalhar)
+## Tasks
 
-- [ ] T001 — Módulo Estoque (qtd, mín/máx)
-- [ ] T002 — Movimentação entrada/saída/ajuste
-- [ ] T003 — Regra saída ≤ saldo
-- [ ] T004 — Soft delete
-- [ ] T005 — Testcontainers Postgres
-- [ ] T006 — Seed dev
+| ID | Task | Status |
+| --- | --- | --- |
+| [T001](../tasks/M02/T001-modelo-estoque.md) | Modelo persistente de estoque e saldo inicial | pendente |
+| [T002](../tasks/M02/T002-dominio-estoque.md) | Domínio de saldo, mínimo e máximo | pendente |
+| [T003](../tasks/M02/T003-movimentacao-entrada-ajuste.md) | Movimentações de entrada e ajuste | pendente |
+| [T004](../tasks/M02/T004-movimentacao-saida.md) | Saída com proteção contra saldo insuficiente | pendente |
+| [T005](../tasks/M02/T005-soft-delete-produto.md) | Exclusão lógica de produto | pendente |
+| [T006](../tasks/M02/T006-testcontainers-postgres.md) | Fixture de PostgreSQL com Testcontainers | pendente |
+| [T007](../tasks/M02/T007-integracao-estoque.md) | Suite de integração da história 1 | pendente |
 
 ## Referências
 

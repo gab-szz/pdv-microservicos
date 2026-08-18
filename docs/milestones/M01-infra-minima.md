@@ -21,14 +21,17 @@ Estoque roda com docker (postgres-estoque) + CRUD produto + logs.
 - `docker compose up` sobe postgres-estoque
 - CRUD departamento + produto; testes unit domínio verdes
 
-## Tasks (a detalhar)
+## Tasks
 
-- [ ] T001 — `docker/compose.dev.yml` postgres-estoque
-- [ ] T002 — `.env.example` + scripts `db:migrate` / `db:seed:dev`
-- [ ] T003 — Health `GET /health` (db)
-- [ ] T004 — Pino + Fastify
-- [ ] T005 — CRUD Produto + testes unitários
-- [ ] T006 — README raiz (como subir)
+| ID | Task | Status |
+| --- | --- | --- |
+| [T001](../tasks/M01/T001-postgres-estoque-compose.md) | Postgres de desenvolvimento e scripts de infraestrutura | pendente |
+| [T002](../tasks/M01/T002-ambiente-drizzle.md) | Ambiente, migrations e seed de desenvolvimento | pendente |
+| [T003](../tasks/M01/T003-health-check.md) | Health check dependente do banco | pendente |
+| [T004](../tasks/M01/T004-observabilidade-http.md) | Logs HTTP e tratamento de erros | pendente |
+| [T005](../tasks/M01/T005-departamento-http.md) | API HTTP de departamentos | pendente |
+| [T006](../tasks/M01/T006-produto-http.md) | API HTTP de produtos | pendente |
+| [T007](../tasks/M01/T007-documentacao-subida-local.md) | Guia de subida local | pendente |
 
 ## Referências
 

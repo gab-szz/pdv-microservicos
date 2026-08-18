@@ -20,15 +20,15 @@ Validar o ciclo build → consumo local antes de criar `domain-errors` e outros 
 
 ## Escopo
 
-- [ ] `estoque-microservico/package.json`: `"@gab-szz/pdv-schemas": "workspace:*"`
-- [ ] Build do pacote: `pnpm --filter @gab-szz/pdv-schemas build`
-- [ ] Import no estoque continua funcionando
-- [ ] Confirmar symlink em `node_modules`
+- [x] `estoque-microservico/package.json`: `"@gab-szz/pdv-schemas": "workspace:*"`
+- [x] Build do pacote: `pnpm --filter @gab-szz/pdv-schemas build`
+- [x] Import no estoque continua funcionando
+- [x] Confirmar symlink em `node_modules`
 
 ## Fora do escopo
 
 - GitHub Packages publish
-- Extrair domain-errors (M06)
+- Extrair domain-errors (M07)
 
 ## Critérios de aceite
 
@@ -48,9 +48,9 @@ rotas que usam idSchema funcionam
 
 ## Arquivos envolvidos
 
-| Ação   | Caminho                                               |
-| ------ | ----------------------------------------------------- |
-| editar | `estoque-microservico/package.json`                   |
+| Ação | Caminho |
+| --- | --- |
+| editar | `estoque-microservico/package.json` |
 | editar | `packages/pdv-schemas/package.json` (se name/exports) |
 
 ## Referências

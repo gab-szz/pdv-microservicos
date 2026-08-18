@@ -1,4 +1,4 @@
-# M04 — RabbitMQ + Outbox + correlation id
+# M05 — RabbitMQ + Outbox + correlation id
 
 **Fase:** Mensageria  
 **História 2:** _Esse produto chegou ao PDV_ (infra de eventos)  
@@ -32,7 +32,7 @@ Estoque publica `estoque.produto.criado` via outbox; logs correlacionados.
 
 - [ ] T001 — `packages/events-contracts` v1
 - [ ] T002 — Tabela outbox + exchange topic
-- [ ] T003 — Worker drain (loop simples; BullMQ em M08)
+- [ ] T003 — Worker drain (loop simples; BullMQ em M09)
 - [ ] T004 — DLQ + retry Rabbit
 - [ ] T005 — Correlation id middleware + propagar em publish
 - [ ] T006 — Testes integração Testcontainers + Rabbit

@@ -1,4 +1,4 @@
-# M07 — Saga venda ↔ estoque
+# M08 — Saga venda ↔ estoque
 
 **Fase:** Consistência  
 **Histórias 3–5:** _Vendido · Estoque baixou · Venda cancelada_  

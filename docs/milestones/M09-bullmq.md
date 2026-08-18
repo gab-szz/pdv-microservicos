@@ -1,4 +1,4 @@
-# M08 — BullMQ + workers
+# M09 — BullMQ + workers
 
 **Fase:** Mensageria  
 **Status:** pendente
@@ -28,4 +28,4 @@ Drain outbox no runtime da API não escala; sync precisará retry com backoff.
 
 ## Referências
 
-- [M04](./M04-mensageria-outbox.md)
+- [M05](./M05-mensageria-outbox.md)

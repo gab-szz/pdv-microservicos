@@ -5,7 +5,10 @@ Cada task segue [`TASK-TEMPLATE.md`](../TASK-TEMPLATE.md). **2–6 horas** por t
 | Milestone    | Pasta                            | Status            |
 | ------------ | -------------------------------- | ----------------- |
 | M00 Monorepo | [M00/](./M00/)                   | T001–T003 prontas |
-| M01+         | _(a criar ao iniciar milestone)_ | —                 |
+| M01 Infra mínima | [M01/](./M01/) | T001–T007 planejadas |
+| M02 Estoque completo | [M02/](./M02/) | T001–T007 planejadas |
+| M03 Infra completa | [M03/](./M03/) | T001–T005 planejadas |
+| M04 PDV AdonisJS | [M04/](./M04/) | T001–T005 planejadas |
 
 ## Como trabalho
 
