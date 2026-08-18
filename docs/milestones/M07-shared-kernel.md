@@ -1,4 +1,4 @@
-# M06 — Shared Kernel (extrair após dor)
+# M07 — Shared Kernel (extrair após dor)
 
 **Fase:** Domínio  
 **Status:** pendente
@@ -11,7 +11,7 @@
 
 Extraio porque **doeu**, não porque previ. Princípio DDD: abstração surge da repetição.
 
-> _Antes estava cedo (M03). Movi para depois do PDV (M05)._
+> _Antes estava cedo (M03). Movi para depois do PDV (M06)._
 
 ## Objetivo
 
@@ -24,7 +24,7 @@ Extraio porque **doeu**, não porque previ. Princípio DDD: abstração surge da
 
 ## Fora do escopo (por enquanto)
 
-- `events-contracts` (já em M04)
+- `events-contracts` (já em M05)
 - `@scope/shared` genérico
 
 ## Tasks (a detalhar)
@@ -37,4 +37,4 @@ Extraio porque **doeu**, não porque previ. Princípio DDD: abstração surge da
 ## Referências
 
 - [shared.md](../../shared.md)
-- [M05](./M05-pdv-primeiro-e2e.md)
+- [M06](./M06-pdv-primeiro-e2e.md)

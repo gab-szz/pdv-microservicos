@@ -20,12 +20,15 @@ Expando compose **uma vez** — evito reconfigurar infra a cada milestone.
 - Clone fresco sobe infra sem Postgres local
 - Dockerfile multi-stage estoque; profiles `dev` / `infra`
 
-## Tasks (a detalhar)
+## Tasks
 
-- [ ] T001 — Adicionar serviços ao compose
-- [ ] T002 — `.env.test` + DB `_test`
-- [ ] T003 — Dockerfile estoque
-- [ ] T004 — Health readiness (db + redis + rabbit)
+| ID | Task | Status |
+| --- | --- | --- |
+| [T001](../tasks/M03/T001-compose-servicos.md) | Compose com Postgres, Redis e RabbitMQ | pendente |
+| [T002](../tasks/M03/T002-ambientes-testes.md) | Variáveis e bancos isolados de teste | pendente |
+| [T003](../tasks/M03/T003-dockerfile-estoque.md) | Imagem multi-stage do Estoque | pendente |
+| [T004](../tasks/M03/T004-readiness-dependencias.md) | Readiness para banco, Redis e RabbitMQ | pendente |
+| [T005](../tasks/M03/T005-guia-infra-local.md) | Guia e smoke test da infraestrutura local | pendente |
 
 ## Referências
 

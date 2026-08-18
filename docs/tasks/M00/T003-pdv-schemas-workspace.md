@@ -28,13 +28,13 @@ Validar o ciclo build → consumo local antes de criar `domain-errors` e outros 
 ## Fora do escopo
 
 - GitHub Packages publish
-- Extrair domain-errors (M06)
+- Extrair domain-errors (M07)
 
 ## Critérios de aceite
 
-- [x] Symlink correto após `pnpm install`
-- [x] Alterar export em `pdv-schemas`, rebuild, estoque vê mudança
-- [x] Zero import `../../packages/...`
+- [ ] Symlink correto após `pnpm install`
+- [ ] Alterar export em `pdv-schemas`, rebuild, estoque vê mudança
+- [ ] Zero import `../../packages/...`
 
 ## Definition of Done
 
@@ -48,9 +48,9 @@ rotas que usam idSchema funcionam
 
 ## Arquivos envolvidos
 
-| Ação   | Caminho                                               |
-| ------ | ----------------------------------------------------- |
-| editar | `estoque-microservico/package.json`                   |
+| Ação | Caminho |
+| --- | --- |
+| editar | `estoque-microservico/package.json` |
 | editar | `packages/pdv-schemas/package.json` (se name/exports) |
 
 ## Referências

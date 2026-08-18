@@ -42,11 +42,11 @@ flowchart LR
 | #     | História                     | Fim = demonstrar…               | Milestones |
 | ----- | ---------------------------- | ------------------------------- | ---------- |
 | **1** | Um produto foi criado        | CRUD + estoque + movimentação   | M01, M02   |
-| **2** | Esse produto chegou ao PDV   | estoque → outbox → Rabbit → PDV | M04, M05   |
-| **3** | Esse produto foi vendido     | Venda confirmada com snapshot   | M07        |
-| **4** | O estoque baixou             | Saída registrada (saga feliz)   | M07        |
-| **5** | A venda foi cancelada        | Estorno no estoque              | M07        |
-| **6** | O ERP descobriu essa mudança | Sync ERP → PDV                  | M10, M11   |
+| **2** | Esse produto chegou ao PDV   | estoque → outbox → Rabbit → PDV | M04–M06   |
+| **3** | Esse produto foi vendido     | Venda confirmada com snapshot   | M08        |
+| **4** | O estoque baixou             | Saída registrada (saga feliz)   | M08        |
+| **5** | A venda foi cancelada        | Estorno no estoque              | M08        |
+| **6** | O ERP descobriu essa mudança | Sync ERP → PDV                  | M11, M12   |
 
 ```mermaid
 flowchart LR
@@ -68,12 +68,12 @@ flowchart LR
 | Fase              | Milestones   | Fecha                                      |
 | ----------------- | ------------ | ------------------------------------------ |
 | **Fundação**      | M00, M01     | pnpm + postgres + estoque base             |
-| **Domínio**       | M02, **M06** | Estoque; Shared Kernel **após** PDV        |
-| **Integração**    | M03, M05     | Compose; **1º E2E**                        |
-| **Mensageria**    | M04, M08     | Outbox, Rabbit, **correlation id**; BullMQ |
-| **Consistência**  | M07, M09     | Saga; cache                                |
-| **Sincronização** | M10, M11     | Sync MVP + completo                        |
-| **Operação**      | M12–M15      | OTel, auth, CI, produção                   |
+| **Domínio**       | M02, **M07** | Estoque; Shared Kernel **após** PDV             |
+| **Integração**    | M03, M04, M06 | Compose; bootstrap AdonisJS; **1º E2E**       |
+| **Mensageria**    | M05, M09     | Outbox, Rabbit, **correlation id**; BullMQ      |
+| **Consistência**  | M08, M10     | Saga; cache                                     |
+| **Sincronização** | M11, M12     | Sync MVP + completo                              |
+| **Operação**      | M13–M16      | OTel, auth, CI, produção                        |
 
 ```mermaid
 flowchart TB
@@ -83,45 +83,47 @@ flowchart TB
   end
   subgraph dominio["Domínio"]
     M02[M02 Estoque]
-    M06[M06 Shared Kernel]
+    M07[M07 Shared Kernel]
   end
   subgraph integracao["Integração"]
     M03[M03 Infra completa]
-    M05[M05 PDV + 1º E2E]
+    M04[M04 PDV AdonisJS]
+    M06[M06 PDV + 1º E2E]
   end
   subgraph mensageria["Mensageria"]
-    M04[M04 Outbox + Rabbit]
-    M08[M08 BullMQ]
+    M05[M05 Outbox + Rabbit]
+    M09[M09 BullMQ]
   end
   subgraph consistencia["Consistência"]
-    M07[M07 Saga]
-    M09[M09 Cache]
+    M08[M08 Saga]
+    M10[M10 Cache]
   end
   subgraph sync["Sincronização"]
-    M10[M10 Sync MVP]
-    M11[M11 Sync completo]
+    M11[M11 Sync MVP]
+    M12[M12 Sync completo]
   end
   subgraph operacao["Operação"]
-    M12[M12 OTel]
-    M13[M13 Auth]
-    M14[M14 CI/E2E]
-    M15[M15 Prod]
+    M13[M13 OTel]
+    M14[M14 Auth]
+    M15[M15 CI/E2E]
+    M16[M16 Prod]
   end
-  M00 --> M01 --> M02 --> M03 --> M04 --> M05
-  M05 --> M06 --> M07 --> M08 --> M09 --> M10 --> M11
-  M11 --> M12 --> M13 --> M14 --> M15
+  M00 --> M01 --> M02 --> M03 --> M04 --> M05 --> M06
+  M06 --> M07 --> M08 --> M09 --> M10 --> M11 --> M12
+  M12 --> M13 --> M14 --> M15 --> M16
 ```
 
 ### Decisões de ordem (v3)
 
 | Mudança                          | Motivo                                                                   |
 | -------------------------------- | ------------------------------------------------------------------------ |
-| Shared Kernel **M06** (após PDV) | Extraio quando **dois serviços** duplicam — abstração nasce da repetição |
-| **Correlation id em M04**        | 1º consumer quebrar → preciso rastrear; OTel full em M12                 |
+| Shared Kernel **M07** (após PDV) | Extraio quando **dois serviços** duplicam — abstração nasce da repetição |
+| **Correlation id em M05**        | 1º consumer quebrar → preciso rastrear; OTel full em M13                 |
+| **AdonisJS no PDV em M04**       | Comparo framework completo com o Fastify do Estoque                       |
 | **Milestones + tasks**           | ROADMAP = visão; execução em tickets 2–6h                                |
 | **Histórias explícitas**         | Portfólio mostra domínio, não só infra                                   |
 
-**Deixo para depois (pós-M15):** API Gateway, CQRS, k6, frontend React.
+**Deixo para depois (pós-M16):** API Gateway, CQRS, k6, frontend React.
 
 ---
 
@@ -273,9 +275,9 @@ flowchart TB
 
 | Pacote                    | Conteúdo                       | Ciclo          |
 | ------------------------- | ------------------------------ | -------------- |
-| `@scope/domain-errors`    | `ErroRegraNegocio`, hierarquia | M06 (após PDV) |
-| `@scope/money`            | VO `Preco`                     | M06            |
-| `@scope/events-contracts` | Zod + nomes exchanges/queues   | M04            |
+| `@scope/domain-errors`    | `ErroRegraNegocio`, hierarquia | M07 (após PDV) |
+| `@scope/money`            | VO `Preco`                     | M07            |
+| `@scope/events-contracts` | Zod + nomes exchanges/queues   | M05            |
 | `@gab-szz/pdv-schemas`    | `idSchema`, primitivos HTTP    | contínuo       |
 
 Detalhes em [`shared.md`](../shared.md).
@@ -357,7 +359,7 @@ Checklists detalhados **não** ficam aqui. Uso:
 
 # Referência: Outbox
 
-_Milestone: [M04](./milestones/M04-mensageria-outbox.md)_
+_Milestone: [M05](./milestones/M05-mensageria-outbox.md)_
 
 ```mermaid
 sequenceDiagram
@@ -381,7 +383,7 @@ sequenceDiagram
 
 # Referência: Saga
 
-_Milestone: [M07](./milestones/M07-saga.md)_
+_Milestone: [M08](./milestones/M08-saga.md)_
 
 ```mermaid
 sequenceDiagram
@@ -408,7 +410,7 @@ sequenceDiagram
   RMQ->>Estoque: consumer
   Estoque->>Estoque: movimentação entrada (estorno)
   RMQ->>Sync: reflete cancelamento no ERP
-  Note over Sync: M10+
+  Note over Sync: M11+
 ```
 
 ---
@@ -418,7 +420,7 @@ sequenceDiagram
 ## Pipeline passo a passo
 
 ```typescript
-// Pseudocódigo — implemento na M10+
+// Pseudocódigo — implemento na M11+
 
 async function executarSyncRun(stream: "pedidos") {
   const run = await syncRunRepo.iniciar(stream);
@@ -603,9 +605,9 @@ flowchart TD
 6. **Sync sem idempotency key** — re-run duplica pedidos
 7. **Cursor avançando antes do commit** — perda de dados em crash
 8. **Retry infinito** em erro permanente — uso DLQ
-9. **Shared Kernel antes de dois consumidores** — extraio em M06, quando duplicar doer
+9. **Shared Kernel antes de dois consumidores** — extraio em M07, quando duplicar doer
 10. **ADR sem alternativa rejeitada** — journal basta
-11. **Dez ferramentas antes do 1º E2E** — história 2 (M05) vem cedo; E2E full em M14
+11. **Dez ferramentas antes do 1º E2E** — história 2 (M06) vem cedo; E2E full em M15
 
 ---
 
@@ -619,7 +621,7 @@ Abrir **[M00 — Monorepo](./milestones/M00-monorepo.md)** → task **[T001 pnpm
 
 | Arquivo                                                               | Conteúdo                 |
 | --------------------------------------------------------------------- | ------------------------ |
-| [`milestones/README.md`](./milestones/README.md)                      | Índice M00–M15           |
+| [`milestones/README.md`](./milestones/README.md)                      | Índice M00–M16           |
 | [`TASK-TEMPLATE.md`](./TASK-TEMPLATE.md)                              | Cabeçalho padrão de task |
 | [`journal/README.md`](./journal/README.md)                            | Retrospectivas           |
 | [`shared.md`](../shared.md)                                           | Shared Kernel, pnpm      |

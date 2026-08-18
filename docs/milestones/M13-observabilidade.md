@@ -1,4 +1,4 @@
-# M12 — Observabilidade (OpenTelemetry)
+# M13 — Observabilidade (OpenTelemetry)
 
 **Fase:** Operação  
 **Status:** pendente
@@ -9,7 +9,7 @@ Fluxos distribuídos difíceis de debugar só com logs locais.
 
 ## Motivação
 
-**OpenTelemetry** agora — correlation id já existe desde M04. OTel expande o que já funciona.
+**OpenTelemetry** agora — correlation id já existe desde M05. OTel expande o que já funciona.
 
 ## Objetivo
 
@@ -27,4 +27,4 @@ Trace venda/sync end-to-end; métricas HTTP/PG/Rabbit/BullMQ.
 
 ## Nota
 
-Correlation id **não** espera este milestone — nasceu em M04.
+Correlation id **não** espera este milestone — nasceu em M05.
