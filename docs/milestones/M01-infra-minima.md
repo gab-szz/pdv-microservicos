@@ -2,7 +2,7 @@
 
 **Fase:** Fundação  
 **História 1:** _Um produto foi criado_ (início)  
-**Status:** pendente
+**Status:** em andamento
 
 ## Problema
 
@@ -23,12 +23,11 @@ Estoque roda com docker (postgres-estoque) + CRUD produto + logs.
 
 ## Tasks (a detalhar)
 
-- [ ] T001 — `docker/compose.dev.yml` postgres-estoque
-- [ ] T002 — `.env.example` + scripts `db:migrate` / `db:seed:dev`
-- [ ] T003 — Health `GET /health` (db)
-- [ ] T004 — Pino + Fastify
-- [ ] T005 — CRUD Produto + testes unitários
-- [ ] T006 — README raiz (como subir)
+- [ ] [T004](../tasks/M00/T004-infra-minima-health.md) — Infra mínima + health (validar runtime e documentar)
+- [ ] [T005](../tasks/M01/T005-migrations-seed-env.md) — Migrations, seed e env de desenvolvimento
+- [ ] [T006](../tasks/M01/T006-logging-pino-fastify.md) — Logging estruturado com Pino
+- [ ] [T007](../tasks/M01/T007-crud-produto-testes.md) — CRUD de produto e testes unitários
+- [ ] [T008](../tasks/M01/T008-readme-operacional.md) — README operacional do estoque
 
 ## Referências
 

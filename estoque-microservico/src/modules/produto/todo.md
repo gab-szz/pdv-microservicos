@@ -49,11 +49,11 @@ Ideias para produto:
 
 Checklist:
 
-- [ ] Validar `nome`.
-- [ ] Validar `precoCusto`.
-- [ ] Validar `precoVenda`.
-- [ ] Validar `departamentoId`.
-- [ ] Decidir se o schema usa `.strict()`.
+- [x] Validar `nome`.
+- [x] Validar `precoCusto`.
+- [x] Validar `precoVenda`.
+- [x] Validar `departamentoId`.
+- [x] Decidir se o schema usa `.strict()`.
 
 ## Etapa 2: strings opcionais sem string vazia
 
@@ -80,33 +80,79 @@ Ideias para produto:
 
 Checklist:
 
-- [ ] Impedir `sku` vazio.
-- [ ] Impedir `codigoBarras` vazio.
-- [ ] Testar espacos em branco.
-- [ ] Decidir se quer normalizar `""` para `undefined` ou rejeitar.
+- [x] Impedir `sku` vazio.
+- [x] Impedir `codigoBarras` vazio.
+- [x] Testar espacos em branco.
+- [x] Decidir se quer normalizar `""` para `undefined` ou rejeitar.
 
-## Etapa 3: formatos com regex
+## Etapa 3: formatos com `validator`
 
-Depois dos tipos, pratique formato.
+A dependencia `validator` pode ser usada junto com Zod. Ela nao substitui o
+schema: o Zod continua organizando o contrato HTTP, os tipos, os campos
+opcionais e as mensagens de erro; o `validator` fornece funcoes prontas para
+casos especificos de strings.
 
-Treine:
+Exemplo:
 
-- `.regex()`
-- mensagens customizadas de erro.
+```ts
+import validator from 'validator';
+import z from 'zod';
 
-Ideias para produto:
+const codigoBarrasSchema = z
+  .string()
+  .trim()
+  .refine((value) => validator.isNumeric(value), {
+    message: 'Codigo de barras deve conter apenas numeros',
+  })
+  .refine((value) => [8, 12, 13, 14].includes(value.length), {
+    message: 'Codigo de barras deve ter 8, 12, 13 ou 14 digitos',
+  });
 
-- `codigoBarras` deve conter apenas numeros.
-- `codigoBarras` pode ter tamanho 8, 12, 13 ou 14.
-- `sku` pode aceitar letras, numeros, hifen e underline.
-- `sku` pode ser convertido para caixa alta.
+const skuSchema = z
+  .string()
+  .trim()
+  .transform((value) => value.toUpperCase())
+  .refine(
+    (value) =>
+      validator.isLength(value, { min: 1, max: 50 }) &&
+      validator.isWhitelisted(value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'),
+    {
+      message: 'SKU deve conter apenas letras, numeros, hifen ou underline',
+    },
+  );
+```
+
+Para codigos que precisam validar o digito verificador, existem funcoes mais
+especificas:
+
+```ts
+const ean8Schema = z.string().refine(validator.isEAN8, {
+  message: 'EAN-8 invalido',
+});
+
+const ean13Schema = z.string().refine(validator.isEAN13, {
+  message: 'EAN-13 invalido',
+});
+```
+
+`isNumeric` e a validacao de tamanho cobrem o formato basico de 8, 12, 13 ou
+14 digitos. Para aceitar somente EAN-8/EAN-13 com digito verificador, prefira
+`isEAN8`/`isEAN13`. Para GTIN-12 ou GTIN-14, mantenha a validacao de digitos e
+implemente uma regra especifica de digito verificador no dominio ou em um
+helper testado.
 
 Checklist:
 
-- [ ] Validar que `codigoBarras` so tem digitos.
-- [ ] Validar tamanho permitido de `codigoBarras`.
-- [ ] Criar um padrao para `sku`.
-- [ ] Testar entradas invalidas como `"abc"`, `"123abc"` e `"   "`.
+- [x] Importar `validator` no schema, se ele for realmente usado.
+- [x] Validar que `codigoBarras` so tem digitos.
+- [x] Validar tamanho permitido de `codigoBarras`.
+- [x] Decidir se o digito verificador sera validado agora.
+- [x] Validar o conjunto permitido para `sku`.
+- [x] Testar entradas invalidas como `"abc"`, `"123abc"` e `"   "`.
+
+Se preferir nao adicionar essa camada de indirecao, remova `validator` e use
+`.regex()` no Zod. O regex continua sendo uma solucao valida para regras
+simples e deixa o contrato inteiro no mesmo arquivo.
 
 ## Etapa 4: normalizacao de entrada
 
@@ -127,10 +173,10 @@ Ideias para produto:
 
 Checklist:
 
-- [ ] Aplicar `trim` em `nome`.
-- [ ] Aplicar `trim` em `sku`.
-- [ ] Transformar `sku` para uppercase.
-- [ ] Decidir se normalizacao deve ficar no schema ou no service.
+- [x] Aplicar `trim` em `nome`.
+- [x] Aplicar `trim` em `sku`.
+- [x] Transformar `sku` para uppercase.
+- [x] Decidir se normalizacao deve ficar no schema ou no service.
 
 ## Etapa 5: coercao para HTTP
 
@@ -274,8 +320,8 @@ Tente implementar nesta ordem:
 1. Endurecer `criarProdutoHttpSchema` com tipos, limites e `.strict()`.
 2. Resolver o nome `departamento` versus `departamentoId`.
 3. Rejeitar `nome`, `sku` e `codigoBarras` vazios.
-4. Validar formato de `codigoBarras`.
-5. Validar formato de `sku`.
+4. Validar formato de `codigoBarras` com `validator.isNumeric` e tamanho.
+5. Validar formato de `sku` com `validator.isWhitelisted`.
 6. Normalizar `nome` e `sku`.
 7. Validar `precoVenda >= precoCusto`.
 8. Criar `atualizarProdutoHttpSchema`.

@@ -1,30 +1,48 @@
 import { redisClient } from '@/infra/redis/redis.js';
 import { Departamento } from '../../../domain/departamento.domain.js';
-import type { HidratarDepartamentoInput } from '../../../domain/departamento.types.js';
+import {
+  DepartamentoRedisMapper,
+  type DepartamentoJsonDTO,
+} from './departamento.mapper.js';
 
 export class DepartamentoCache {
-  async salvar(dpto: Departamento[] | Departamento): Promise<void> {
-    if (dpto instanceof Departamento) {
-      await redisClient.set(`departamento:${dpto.id}`, JSON.stringify(dpto));
+  private readonly ioredis: typeof redisClient;
+
+  constructor({ ioredis }: { ioredis: typeof redisClient }) {
+    this.ioredis = ioredis;
+  }
+
+  async salvar(input: Departamento[] | Departamento): Promise<void> {
+    if (input instanceof Departamento) {
+      const json = DepartamentoRedisMapper.departamentoParaJson(input);
+
+      await this.ioredis.set(`departamento:${input.id}`, JSON.stringify(json));
     } else {
-      await redisClient.set(`departamento`, JSON.stringify(dpto));
+      const json = input.map((d) =>
+        DepartamentoRedisMapper.departamentoParaJson(d),
+      );
+      await this.ioredis.set(`departamento`, JSON.stringify(json));
     }
   }
 
   async obter(): Promise<Departamento[]> {
-    let dptos = await redisClient.get('departamento');
-    if (dptos) {
-      const listaDpto: HidratarDepartamentoInput[] = JSON.parse(dptos);
-      return listaDpto.map((d) => Departamento.hidratar(d));
+    let departamentos = await this.ioredis.get('departamento');
+    if (departamentos) {
+      const listaDpto: DepartamentoJsonDTO[] = JSON.parse(departamentos);
+      return listaDpto.map((d) =>
+        DepartamentoRedisMapper.jsonParaDepartamento(d),
+      );
     }
 
     return [];
   }
 
   async obterPeloId(id: number): Promise<Departamento | null> {
-    const dpto = await redisClient.get(`departamento:${id}`);
-    if (dpto) {
-      const departamento = Departamento.hidratar(JSON.parse(dpto));
+    const json = await this.ioredis.get(`departamento:${id}`);
+    if (json) {
+      const departamento = DepartamentoRedisMapper.jsonParaDepartamento(
+        JSON.parse(json),
+      );
       console.log(`cache hit = departamento:${id}`);
       return departamento;
     }

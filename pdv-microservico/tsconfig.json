@@ -1,42 +1,10 @@
 {
-  "include": [
-    "./src/**/*",
-    "./test/**/*",
-    "./drizzle.config.ts",
-    "./vitest.config.ts"
-  ],
+  "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-
-    // File Layout
-    "noEmit": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-
-    // Environment Settings
-    "module": "NodeNext",
-    "target": "esnext",
-    "moduleResolution": "NodeNext",
-    "lib": ["esnext"],
-    "types": ["node"],
-
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": false,
-
-    // Style Options
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-
-    // Recommended Options
-    "strict": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true
+    "rootDir": "./",
+    "jsx": "react",
+    "outDir": "./build",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }

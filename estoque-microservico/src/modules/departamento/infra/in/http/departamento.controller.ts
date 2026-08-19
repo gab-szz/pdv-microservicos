@@ -1,15 +1,19 @@
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { criarDepartamentoHttpSchema } from './departamento.schema.js';
-import { departamentoSelectSchema } from '@/infra/database/schemas/departamento.schema.js';
-import departamentoModule from '../../../departamento.module.js';
+import {
+  criarDepartamentoHttpSchema,
+  departamentoHttpSchema,
+} from './departamento.schema.js';
 import z from 'zod';
 import { idSchema } from '@gab-szz/pdv-schemas';
+import type { DepartamentoService } from '@/modules/departamento/application/departamento.service.js';
 
 function departamentoRoutes(fastify: FastifyInstance) {
   const app = fastify.withTypeProvider<ZodTypeProvider>();
 
-  const service = departamentoModule.service();
+  const service: DepartamentoService = fastify.diContainer.resolve(
+    'departamentoService',
+  );
 
   // Cria um novo departamento
   app.post(
@@ -18,7 +22,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
       schema: {
         body: criarDepartamentoHttpSchema,
         response: {
-          200: departamentoSelectSchema.omit({ alteradoEm: true, excluidoEm: true }),
+          200: departamentoHttpSchema,
         },
       },
     },
@@ -34,7 +38,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     '/',
     {
       schema: {
-        response: { 200: z.array(departamentoSelectSchema) },
+        response: { 200: z.array(departamentoHttpSchema) },
       },
     },
     async (_request, reply) => {
@@ -49,7 +53,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
     {
       schema: {
         params: idSchema,
-        response: { 200: departamentoSelectSchema },
+        response: { 200: departamentoHttpSchema },
       },
     },
     async (request, reply) => {
@@ -66,7 +70,7 @@ function departamentoRoutes(fastify: FastifyInstance) {
       schema: {
         body: criarDepartamentoHttpSchema,
         params: idSchema,
-        response: { 200: departamentoSelectSchema },
+        response: { 200: departamentoHttpSchema },
       },
     },
     async (request, reply) => {

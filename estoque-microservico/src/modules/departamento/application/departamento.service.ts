@@ -8,11 +8,23 @@ import type { DepartamentoIA } from '../infra/out/ia/departamento.ia.js';
 import type { DepartamentoCache } from '../infra/out/cache/departamento.redis.js';
 
 export class DepartamentoService {
-  constructor(
-    private readonly repository: IDepartamentoRepositoryPort,
-    private readonly cache: DepartamentoCache,
-    private readonly departamentoIA: DepartamentoIA,
-  ) {}
+  repository: IDepartamentoRepositoryPort;
+  cache: DepartamentoCache;
+  departamentoIA: DepartamentoIA;
+
+  constructor({
+    departamentoRepository,
+    departamentoCache,
+    departamentoIA,
+  }: {
+    departamentoRepository: IDepartamentoRepositoryPort;
+    departamentoCache: DepartamentoCache;
+    departamentoIA: DepartamentoIA;
+  }) {
+    this.repository = departamentoRepository;
+    this.cache = departamentoCache;
+    this.departamentoIA = departamentoIA;
+  }
 
   /**
    * Cria um novo departamento, com validações de regras de negócio em domínio
@@ -36,7 +48,10 @@ export class DepartamentoService {
    * @param inp - Dados para atualização do departamento
    * @returns Instãncia do departamento criado
    */
-  async atualizar(id: number, inp: AtualizarDepartamentoInput): Promise<Departamento> {
+  async atualizar(
+    id: number,
+    inp: AtualizarDepartamentoInput,
+  ): Promise<Departamento> {
     const departamento = await this.consultarPeloId(id);
     departamento.atualizar(inp);
 
@@ -62,6 +77,7 @@ export class DepartamentoService {
     const chached = await this.cache.obterPeloId(id);
     if (chached !== null) {
       console.log('Cache HIT');
+      console.log(chached);
       return chached;
     }
 

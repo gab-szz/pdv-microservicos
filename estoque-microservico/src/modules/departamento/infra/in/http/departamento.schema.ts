@@ -7,3 +7,12 @@ export const criarDepartamentoHttpSchema = z
   })
   .strict();
 export type CriarDepartamentoHttpDTO = z.infer<typeof criarDepartamentoHttpSchema>;
+
+export const departamentoHttpSchema = z.object({
+  id: z.number(),
+  nome: z.string(),
+  descricao: z.string().nullish(),
+  criadoEm: z.date(),
+  atualizadoEm: z.date().nullish(),
+  excluidoEm: z.date().nullish(),
+});

@@ -8,8 +8,8 @@ const pool = new Pool({
   connectionString: env.DATABASE_URL,
 });
 
-export function testarConexaoPostgres() {
-  db.execute('SELECT 1');
+export async function testarConexaoPostgres() {
+  await db.execute('SELECT 1');
   console.log('Conexão com postgres estabelecida com sucesso');
 }
 

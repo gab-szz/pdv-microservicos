@@ -15,6 +15,7 @@ export class ProdutoService {
    * Cadastra um novo Produto
    */
   async cadastrar(input: CadastrarProdutoInput): Promise<Produto> {
+    await this.verificarSeDepartamentoExiste(input.departamentoId);
     const pCusto = Preco.criar(input.precoCusto);
     const pVenda = Preco.criar(input.precoVenda);
 
@@ -50,7 +51,10 @@ export class ProdutoService {
     await this.verificarSeDepartamentoExiste(departamentoId);
 
     produto.renomear(props.nome);
-    produto.atualizarPrecificacao(Preco.criar(props.precoCusto), Preco.criar(props.precoVenda));
+    produto.atualizarPrecificacao(
+      Preco.criar(props.precoCusto),
+      Preco.criar(props.precoVenda),
+    );
     if (props.sku) produto.alterarSku(props.sku);
     if (props.codigoBarras) produto.alterarCodigoBarras(props.codigoBarras);
 

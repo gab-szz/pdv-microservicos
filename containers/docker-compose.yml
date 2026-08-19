@@ -1,0 +1,34 @@
+services:
+  redis:
+    image: redis:7.4
+    container_name: redis_pdv
+    ports:
+      - "6380:6379"
+    networks:
+      - pdv-network
+    volumes:
+      - redis_data:/data
+    profiles: ["infra"]
+
+  postgres_estoque:
+    image: postgres:16.2
+    container_name: postgres_estoque_pdv
+    environment:
+      POSTGRES_DB: pdv_db
+      POSTGRES_PASSWORD: dev
+    volumes:
+      - postgres_estoque_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5433:5432"
+    networks:
+      - pdv-network
+    profiles: ["infra"]
+
+networks:
+  pdv-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+  postgres_estoque_data:

@@ -7,7 +7,11 @@ import { DepartamentoMapper } from './departamento.mapper.js';
 import { DatabaseError } from 'pg';
 
 export class DepartamentoDrizzleAdapter implements IDepartamentoRepositoryPort {
-  constructor(private readonly db: DB) {}
+  private readonly db: DB;
+
+  constructor({ db }: { db: DB }) {
+    this.db = db;
+  }
 
   /**
    * Insere um novo Departamento no banco de Dados

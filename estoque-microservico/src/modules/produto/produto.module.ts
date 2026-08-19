@@ -6,7 +6,7 @@ import { DepartamentoDrizzleAdapter } from '../departamento/infra/out/persistenc
 class ProdutoModule {
   service(): ProdutoService {
     const repository = new ProdutoDrizzleAdapter(db);
-    const deptoRepository = new DepartamentoDrizzleAdapter(db);
+    const deptoRepository = new DepartamentoDrizzleAdapter({ db });
     return new ProdutoService(repository, deptoRepository);
   }
 }
